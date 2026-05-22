@@ -164,7 +164,7 @@
         }
 
         .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 6px)
+            transform: translateY(8px) rotate(45deg)
         }
 
         .hamburger.active span:nth-child(2) {
@@ -172,7 +172,7 @@
         }
 
         .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -6px)
+            transform: translateY(-8px) rotate(-45deg)
         }
 
         /* ===== PAGE LOADER ===== */
@@ -302,7 +302,7 @@
             background: var(--ink);
             color: var(--cream);
             padding: 16px 36px;
-            border-radius: 2px;
+            border-radius: 6px;
             font-size: 0.82rem;
             font-weight: 500;
             letter-spacing: 0.1em;
@@ -316,7 +316,8 @@
             overflow: hidden;
             border: none;
             cursor: pointer;
-            font-family: 'DM Sans', sans-serif
+            font-family: 'DM Sans', sans-serif;
+            z-index: 1
         }
 
         .btn-primary::after {
@@ -1836,9 +1837,9 @@
             padding: 120px 64px;
             background: var(--paper);
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 100px;
-            align-items: start
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 80px;
+            align-items: flex-start
         }
 
         .contact-title {
@@ -1864,57 +1865,69 @@
         }
 
         .contact-methods {
-            display: flex;
-            flex-direction: column;
-            gap: 14px
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px
         }
 
         .contact-method {
             display: flex;
             align-items: center;
-            gap: 20px;
-            padding: 18px 22px;
-            background: var(--warm);
-            border-radius: 3px;
+            gap: 12px;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.45);
+            border-radius: 6px;
             text-decoration: none;
             color: var(--ink);
-            transition: all 0.3s;
-            border: 1px solid transparent
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(26, 18, 8, 0.08)
         }
 
         .contact-method:hover {
             border-color: var(--orange);
-            transform: translateX(6px)
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(26, 18, 8, 0.06)
+        }
+
+        .contact-method.full-width {
+            grid-column: span 2
         }
 
         .method-icon {
-            width: 44px;
-            height: 44px;
-            background: var(--ink);
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
+            font-size: 1rem;
             flex-shrink: 0;
             color: white
         }
 
         .method-label {
-            font-size: 0.68rem;
+            font-size: 0.65rem;
             font-weight: 500;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            opacity: 0.45;
+            opacity: 0.5;
             margin-bottom: 2px
         }
 
         .method-value {
-            font-weight: 500;
-            font-size: 0.92rem
+            font-weight: 600;
+            font-size: 0.85rem
         }
 
         .contact-form {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid rgba(26, 18, 8, 0.08);
+            box-shadow: 0 12px 32px rgba(26, 18, 8, 0.03);
             display: flex;
             flex-direction: column;
             gap: 20px
@@ -1930,38 +1943,50 @@
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 8px
+            gap: 6px
         }
 
         .form-label {
-            font-size: 0.72rem;
-            font-weight: 500;
-            letter-spacing: 0.12em;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            opacity: 0.5
+            opacity: 0.6;
+            margin-bottom: 2px
         }
 
         .form-input,
         .form-textarea,
         .form-select {
             padding: 15px 18px;
-            background: var(--warm);
+            background: rgba(255, 255, 255, 0.6);
             border: 1px solid rgba(26, 18, 8, 0.12);
-            border-radius: 2px;
+            border-radius: 6px;
             font-family: 'DM Sans', sans-serif;
             font-size: 0.95rem;
             color: var(--ink);
             outline: none;
-            transition: border-color 0.2s;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
             resize: none;
             appearance: none;
             -webkit-appearance: none
         }
 
+        .form-select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a1208' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 18px center;
+            background-size: 16px;
+            padding-right: 48px;
+            cursor: pointer
+        }
+
         .form-input:focus,
         .form-textarea:focus,
         .form-select:focus {
-            border-color: var(--orange)
+            border-color: var(--orange);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(232, 98, 42, 0.15)
         }
 
         .form-textarea {
@@ -1979,7 +2004,7 @@
             background: var(--ink);
             color: var(--cream);
             border: none;
-            border-radius: 2px;
+            border-radius: 6px;
             font-family: 'DM Sans', sans-serif;
             font-size: 0.82rem;
             font-weight: 500;
@@ -1993,7 +2018,8 @@
             align-items: center;
             gap: 10px;
             justify-content: center;
-            width: 100%
+            width: 100%;
+            z-index: 1
         }
 
         .submit-btn::after {
@@ -2025,7 +2051,7 @@
             background: var(--wa);
             color: white;
             border: none;
-            border-radius: 2px;
+            border-radius: 6px;
             font-family: 'DM Sans', sans-serif;
             font-size: 0.82rem;
             font-weight: 500;
@@ -2049,7 +2075,7 @@
             padding: 24px;
             background: rgba(37, 211, 102, 0.08);
             border: 1px solid var(--wa);
-            border-radius: 3px;
+            border-radius: 6px;
             text-align: center
         }
 
@@ -2217,7 +2243,7 @@
 
         .footer-top {
             display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            grid-template-columns: 1.5fr 1fr 1fr;
             gap: 60px;
             margin-bottom: 60px;
             padding-bottom: 60px;
@@ -2298,8 +2324,9 @@
 
         .footer-bottom {
             display: flex;
-            justify-content: space-between;
-            align-items: center
+            justify-content: center;
+            align-items: center;
+            text-align: center
         }
 
         .footer-copy {
@@ -2509,9 +2536,7 @@
             .video-grid {
                 grid-template-columns: repeat(2, 1fr)
             }
-        }
 
-        @media(max-width:900px) {
             nav {
                 padding: 16px 24px
             }
@@ -2544,13 +2569,18 @@
 
             .nav-links.open a {
                 font-size: 1.4rem;
-                opacity: 0.8
+                opacity: 0.8;
+                text-align: center;
+                display: block;
+                width: 100%
             }
 
             .hamburger {
                 display: flex
             }
+        }
 
+        @media(max-width:900px) {
             .hero {
                 grid-template-columns: 1fr
             }
@@ -2620,6 +2650,18 @@
             .contact {
                 grid-template-columns: 1fr;
                 gap: 48px
+            }
+
+            .contact-methods {
+                grid-template-columns: 1fr
+            }
+
+            .contact-method.full-width {
+                grid-column: span 1
+            }
+
+            .contact-form {
+                padding: 28px 24px
             }
 
             .social-section {
@@ -2707,11 +2749,9 @@
         <div class="loader-inner">
             <div class="loader-text">
                 <span style="animation-delay:0s">R</span><span style="animation-delay:.05s">a</span><span
-                    style="animation-delay:.1s">j</span><span style="animation-delay:.15s">k</span><span
-                    style="animation-delay:.2s">u</span><span style="animation-delay:.25s">m</span><span
-                    style="animation-delay:.3s">a</span><span style="animation-delay:.35s">r</span>
+                    style="animation-delay:.1s">j</span><span style="animation-delay:.15s">&nbsp;</span><span
+                    style="animation-delay:.2s">M</span>
             </div>
-            <div class="loader-bar"></div>
         </div>
     </div>
 
@@ -2759,7 +2799,7 @@
             <li><a href="#work">Work</a></li>
             <li><a href="#gallery">Gallery</a></li>
             <li><a href="#clients">Clients</a></li>
-            <li><a href="#contact" class="nav-cta-link">Commission</a></li>
+            <li><a href="#contact" class="nav-cta-link">Contact</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="Menu">
             <span></span><span></span><span></span>
@@ -2793,7 +2833,7 @@
                     <div class="stat-label">Works</div>
                 </div>
                 <div>
-                    <div class="stat-num">61K</div>
+                    <div class="stat-num">490K</div>
                     <div class="stat-label">Top Post Likes</div>
                 </div>
             </div>
@@ -2817,7 +2857,7 @@
                 </div>
             </div>
             <div class="hero-badge">
-                <div class="badge-num">61K</div>
+                <div class="badge-num">490K</div>
                 <div class="badge-text">Likes on<br>Top Post</div>
             </div>
         </div>
@@ -2870,7 +2910,7 @@
                 </div>
                 <div class="about-fact">
                     <div class="about-fact-label">Contact</div>
-                    <div class="about-fact-val" style="font-size:0.85rem">rajm557i66@<br>gmail.com</div>
+                    <div class="about-fact-val" style="font-size:0.85rem">rajm557166@<br>gmail.com</div>
                 </div>
             </div>
             <div class="about-skills reveal">
@@ -2919,12 +2959,6 @@
                     cinematic posters to character portraits.</p>
                 <div class="skill-card-tools"><span class="tool-chip">Adobe Illustrator</span><span
                         class="tool-chip">Photoshop</span><span class="tool-chip">Procreate</span></div>
-                <div class="skill-bar">
-                    <div class="skill-bar-label"><span>Proficiency</span><span>95%</span></div>
-                    <div class="skill-bar-track">
-                        <div class="skill-bar-fill" style="--pct:95%"></div>
-                    </div>
-                </div>
             </div>
             <div class="skill-card reveal reveal-delay-1">
                 <span class="skill-card-icon">✏️</span>
@@ -2933,12 +2967,6 @@
                     films and animation.</p>
                 <div class="skill-card-tools"><span class="tool-chip">Character Design</span><span class="tool-chip">Env
                         Design</span><span class="tool-chip">Prop Design</span></div>
-                <div class="skill-bar">
-                    <div class="skill-bar-label"><span>Proficiency</span><span>90%</span></div>
-                    <div class="skill-bar-track">
-                        <div class="skill-bar-fill" style="--pct:90%"></div>
-                    </div>
-                </div>
             </div>
             <div class="skill-card reveal reveal-delay-2">
                 <span class="skill-card-icon">🎬</span>
@@ -2947,12 +2975,6 @@
                     for brands and entertainment clients.</p>
                 <div class="skill-card-tools"><span class="tool-chip">Vector Illustration</span><span
                         class="tool-chip">Graphic Design</span><span class="tool-chip">T-Shirt Design</span></div>
-                <div class="skill-bar">
-                    <div class="skill-bar-label"><span>Proficiency</span><span>95%</span></div>
-                    <div class="skill-bar-track">
-                        <div class="skill-bar-fill" style="--pct:95%"></div>
-                    </div>
-                </div>
             </div>
             <div class="skill-card reveal">
                 <span class="skill-card-icon">🖼️</span>
@@ -2961,12 +2983,6 @@
                     for music and film productions.</p>
                 <div class="skill-card-tools"><span class="tool-chip">Motion Graphics</span><span
                         class="tool-chip">After Effects</span><span class="tool-chip">Thumbnails</span></div>
-                <div class="skill-bar">
-                    <div class="skill-bar-label"><span>Proficiency</span><span>80%</span></div>
-                    <div class="skill-bar-track">
-                        <div class="skill-bar-fill" style="--pct:80%"></div>
-                    </div>
-                </div>
             </div>
             <div class="skill-card reveal reveal-delay-1">
                 <span class="skill-card-icon">🏛️</span>
@@ -2975,12 +2991,6 @@
                     spaces — including 6–8 month contract projects.</p>
                 <div class="skill-card-tools"><span class="tool-chip">Vector Art</span><span class="tool-chip">Large
                         Format</span><span class="tool-chip">Interior Design</span></div>
-                <div class="skill-bar">
-                    <div class="skill-bar-label"><span>Proficiency</span><span>88%</span></div>
-                    <div class="skill-bar-track">
-                        <div class="skill-bar-fill" style="--pct:88%"></div>
-                    </div>
-                </div>
             </div>
             <div class="skill-card reveal reveal-delay-2">
                 <span class="skill-card-icon">🎭</span>
@@ -2989,12 +2999,6 @@
                     projects with cinematic quality.</p>
                 <div class="skill-card-tools"><span class="tool-chip">Digital Painting</span><span
                         class="tool-chip">Realistic Art</span><span class="tool-chip">Film Art</span></div>
-                <div class="skill-bar">
-                    <div class="skill-bar-label"><span>Proficiency</span><span>85%</span></div>
-                    <div class="skill-bar-track">
-                        <div class="skill-bar-fill" style="--pct:85%"></div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -3469,68 +3473,6 @@
         </div>
     </section>
 
-    <!-- ===== EXPERIENCE & EDUCATION ===== -->
-    <section class="exp-section" id="experience">
-        <div class="section-label">Background</div>
-        <h2 class="exp-title">Experience &amp; <em>Education</em></h2>
-        <div class="exp-grid">
-            <div>
-                <div class="exp-col-title">Experience</div>
-                <div class="timeline">
-                    <div class="timeline-item reveal">
-                        <div class="timeline-date">2018 — Present</div>
-                        <div class="timeline-role">Freelance Illustrator & Concept Artist</div>
-                        <div class="timeline-org">Self-employed · Various Clients</div>
-                        <div class="timeline-desc">Working with film studios, music labels, theatre chains and brands on
-                            illustration, concept art, poster design, motion graphics and large-scale interior projects.
-                        </div>
-                    </div>
-                    <div class="timeline-item reveal reveal-delay-1">
-                        <div class="timeline-date">Contract Project</div>
-                        <div class="timeline-role">Cinema Interior Illustrator</div>
-                        <div class="timeline-org">Vetri E-Square · Coimbatore</div>
-                        <div class="timeline-desc">6–8 month contract to illustrate "Epic Frames of Tamil Cinema" — a
-                            large-scale vector artwork installation across the entire cinema interior.</div>
-                    </div>
-                    <div class="timeline-item reveal reveal-delay-2">
-                        <div class="timeline-date">Ongoing</div>
-                        <div class="timeline-role">Brand & Entertainment Illustrator</div>
-                        <div class="timeline-org">AGS, Think Music, KVN, Thenandal, Route</div>
-                        <div class="timeline-desc">Creating promotional illustrations, title frames, lyrical video art
-                            and movie poster designs for Tamil film and music industry clients.</div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="exp-col-title">Education</div>
-                <div class="timeline">
-                    <div class="timeline-item reveal">
-                        <div class="timeline-date">2018 — 2021</div>
-                        <div class="timeline-role">B.Sc Visual Communication</div>
-                        <div class="timeline-org">Nehru Arts & Science College, Coimbatore</div>
-                        <div class="timeline-desc">Studied visual communication with focus on design, illustration,
-                            digital art, and visual storytelling principles.</div>
-                    </div>
-                    <div class="timeline-item reveal reveal-delay-1">
-                        <div class="timeline-date">Skills</div>
-                        <div class="timeline-role">Software & Tools</div>
-                        <div class="timeline-org">Adobe Creative Suite & More</div>
-                        <div class="timeline-desc">Adobe Illustrator · Adobe Photoshop · After Effects · Procreate ·
-                            Digital Illustration · Vector Art · Motion Graphics</div>
-                    </div>
-                    <div class="timeline-item reveal reveal-delay-2">
-                        <div class="timeline-date">LinkedIn</div>
-                        <div class="timeline-role">Connect Professionally</div>
-                        <div class="timeline-org" style="word-break:break-all"><a
-                                href="http://linkedin.com/in/rajkumarillustrator" target="_blank"
-                                style="color:var(--orange);text-decoration:none">linkedin.com/in/rajkumarillustrator</a>
-                        </div>
-                        <div class="timeline-desc">Email: rajm557i66@gmail.com</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- ===== PROCESS ===== -->
     <section class="process" id="process">
@@ -3607,13 +3549,12 @@
                         </svg>
                     </div>
                     <div>
-                        <div class="method-label">Instagram (DM Preferred)</div>
+                        <div class="method-label">Instagram</div>
                         <div class="method-value">@raj_illustrator</div>
                     </div>
                 </a>
-                <a href="https://wa.me/919999999999?text=Hi%20Rajkumar!%20I%20want%20to%20commission%20artwork."
-                    target="_blank" class="contact-method"
-                    style="background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.25)">
+                <a href="https://wa.me/919999999999?text=Hi%20Raj!%20I%20want%20to%20commission%20artwork."
+                    target="_blank" class="contact-method">
                     <div class="method-icon" style="background:var(--wa)">
                         <svg viewBox="0 0 24 24" width="18" height="18">
                             <path
@@ -3622,31 +3563,53 @@
                         </svg>
                     </div>
                     <div>
-                        <div class="method-label">WhatsApp (Quick Reply)</div>
+                        <div class="method-label">WhatsApp</div>
                         <div class="method-value">Chat on WhatsApp →</div>
                     </div>
                 </a>
-                <a href="mailto:rajm557i66@gmail.com" class="contact-method">
-                    <div class="method-icon">✉</div>
+                <a href="https://x.com/rajillustrator" target="_blank" class="contact-method">
+                    <div class="method-icon" style="background:#000">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="white">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="method-label">Twitter / X</div>
+                        <div class="method-value">@rajillustrator</div>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@rajm1483" target="_blank" class="contact-method">
+                    <div class="method-icon" style="background:#ff0000">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="white">
+                            <path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="method-label">YouTube</div>
+                        <div class="method-value">Process & Reels</div>
+                    </div>
+                </a>
+                <a href="https://www.facebook.com/rajillustrator/" target="_blank" class="contact-method">
+                    <div class="method-icon" style="background:#1877f2">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="white">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="method-label">Facebook</div>
+                        <div class="method-value">Raj Illustrator</div>
+                    </div>
+                </a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=rajm557166@gmail.com" target="_blank" class="contact-method">
+                    <div class="method-icon" style="background:#ea4335">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                    </div>
                     <div>
                         <div class="method-label">Email</div>
-                        <div class="method-value">rajm557i66@gmail.com</div>
-                    </div>
-                </a>
-                <a href="http://linkedin.com/in/rajkumarillustrator" target="_blank" class="contact-method">
-                    <div class="method-icon" style="background:#0a66c2;color:white;font-size:0.85rem;font-weight:700">in
-                    </div>
-                    <div>
-                        <div class="method-label">LinkedIn</div>
-                        <div class="method-value">linkedin.com/in/rajkumarillustrator</div>
-                    </div>
-                </a>
-                <a href="https://www.instagram.com/direct/new/" target="_blank" class="contact-method"
-                    style="background:var(--orange);color:white;border-color:var(--orange)">
-                    <div class="method-icon" style="background:rgba(255,255,255,0.2)">💬</div>
-                    <div>
-                        <div class="method-label" style="color:rgba(255,255,255,0.7)">Quickest Response</div>
-                        <div class="method-value">Send a DM on Instagram →</div>
+                        <div class="method-value" style="font-size:0.75rem;">rajm557166@gmail.com</div>
                     </div>
                 </a>
             </div>
@@ -3658,32 +3621,34 @@
                 <div class="form-section-label">Commission Request</div>
                 <div id="formSuccess" class="form-success">
                     <div style="font-size:2rem;margin-bottom:12px">🎨</div>
-                    <p style="font-family:'Playfair Display',serif;font-style:italic;opacity:0.8">Message sent! Rajkumar
+                    <p style="font-family:'Playfair Display',serif;font-style:italic;opacity:0.8">Message sent! Raj
                         will reach out via WhatsApp or Instagram DM shortly.</p>
                 </div>
                 <div class="form-row">
                     <div class="form-group"><label class="form-label">Your Name</label><input type="text"
                             class="form-input" id="fName" placeholder="Your full name"></div>
+                    <div class="form-group"><label class="form-label">Your WhatsApp / Instagram</label><input type="text"
+                            class="form-input" id="fContact" placeholder="@yourhandle or +91 XXXXX XXXXX"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Project Type</label>
+                        <select class="form-select" id="fType">
+                            <option value="">Select a service...</option>
+                            <option>Character Illustration</option>
+                            <option>Movie / Tribute Poster</option>
+                            <option>Concept Art</option>
+                            <option>Motion Graphics / Title Frames</option>
+                            <option>Merchandising / T-Shirt Design</option>
+                            <option>Interior / Large Scale</option>
+                            <option>Brand Collaboration</option>
+                            <option>Realistic Digital Art</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
                     <div class="form-group"><label class="form-label">Budget (₹)</label><input type="text"
                             class="form-input" id="fBudget" placeholder="e.g. ₹3,000"></div>
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Project Type</label>
-                    <select class="form-select" id="fType">
-                        <option value="">Select a service...</option>
-                        <option>Character Illustration</option>
-                        <option>Movie / Tribute Poster</option>
-                        <option>Concept Art</option>
-                        <option>Motion Graphics / Title Frames</option>
-                        <option>Merchandising / T-Shirt Design</option>
-                        <option>Interior / Large Scale</option>
-                        <option>Brand Collaboration</option>
-                        <option>Realistic Digital Art</option>
-                        <option>Other</option>
-                    </select>
-                </div>
-                <div class="form-group"><label class="form-label">Your WhatsApp / Instagram</label><input type="text"
-                        class="form-input" id="fContact" placeholder="@yourhandle or +91 XXXXX XXXXX"></div>
                 <div class="form-group"><label class="form-label">Tell me about your vision</label><textarea
                         class="form-textarea" id="fMsg"
                         placeholder="Describe the artwork — mood, style, references, deadline..."></textarea></div>
@@ -3700,85 +3665,7 @@
         </div>
     </section>
 
-    <!-- ===== SOCIAL LINKS ===== -->
-    <section class="social-section" id="socials">
-        <div>
-            <div class="section-label">Find me everywhere</div>
-            <h2 class="social-title">All my <em>links</em><br>in one place.</h2>
-            <p class="social-desc">Follow my creative journey across platforms — from Instagram reels to YouTube process
-                videos and Behance portfolio.</p>
-            <div class="social-links-list">
-                <a href="https://www.instagram.com/raj_illustrator" target="_blank"
-                    class="social-link-btn slb-instagram">
-                    <div class="slb-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none">
-                            <rect x="2" y="2" width="20" height="20" rx="5" stroke="white" stroke-width="2" />
-                            <circle cx="12" cy="12" r="4" stroke="white" stroke-width="2" />
-                            <circle cx="17.5" cy="6.5" r="1" fill="white" />
-                        </svg></div>
-                    Instagram — @raj_illustrator
-                </a>
-                <a href="https://www.youtube.com/@rajillustrator" target="_blank" class="social-link-btn slb-youtube">
-                    <div class="slb-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="white">
-                            <path
-                                d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z" />
-                        </svg></div>
-                    YouTube — Process Videos & Reels
-                </a>
-                <a href="https://twitter.com/rajillustrator" target="_blank" class="social-link-btn slb-twitter">
-                    <div class="slb-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="white">
-                            <path
-                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                        </svg></div>
-                    Twitter / X — @rajillustrator
-                </a>
-                <a href="https://www.facebook.com/rajillustrator" target="_blank" class="social-link-btn slb-facebook">
-                    <div class="slb-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="white">
-                            <path
-                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                        </svg></div>
-                    Facebook Page
-                </a>
-                <a href="https://wa.me/919999999999" target="_blank" class="social-link-btn slb-whatsapp">
-                    <div class="slb-icon"><svg viewBox="0 0 24 24" width="18" height="18">
-                            <path
-                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
-                                fill="white" />
-                        </svg></div>
-                    WhatsApp — Quick Inquiry
-                </a>
-                <a href="https://www.behance.net/rajkumarillustrator" target="_blank"
-                    class="social-link-btn slb-behance">
-                    <div class="slb-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="white">
-                            <path
-                                d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029H23.7zM15.973 13h5.06c-.069-1.786-1.351-2.108-2.55-2.108-1.247 0-2.307.402-2.51 2.108zM1 21h3.65c1.97 0 3.706-.377 3.706-2.694 0-1.403-.819-2.228-2.143-2.388v-.044c1.083-.237 1.768-1.042 1.768-2.148 0-2.259-1.669-2.726-3.602-2.726H1V21zM4.002 12h1.43c.804 0 1.567.108 1.567 1.154 0 .979-.621 1.257-1.501 1.257H4.002V12zm0 4h1.538c1.02 0 1.71.287 1.71 1.462 0 1.109-.838 1.538-1.82 1.538H4V16z" />
-                        </svg></div>
-                    Behance — Full Portfolio
-                </a>
-            </div>
-        </div>
 
-        <div>
-            <div class="social-card-visual">
-                <div class="svc-avatar">R</div>
-                <div class="svc-name">Rajkumar M.</div>
-                <div class="svc-handle">@raj_illustrator · @rajillustrator1</div>
-                <div class="svc-links">
-                    <a href="https://tappr.in/rajillustrator1" target="_blank" class="svc-link"
-                        style="background:#1769ff">✦ Behance</a>
-                    <a href="https://twitter.com/rajillustrator" target="_blank" class="svc-link"
-                        style="background:#111">𝕏 Twitter / X</a>
-                    <a href="https://www.youtube.com/@rajillustrator" target="_blank" class="svc-link"
-                        style="background:#ff0000">▶ YouTube</a>
-                    <a href="https://www.instagram.com/raj_illustrator" target="_blank" class="svc-link"
-                        style="background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045)">◎ Instagram</a>
-                    <a href="https://wa.me/919999999999" target="_blank" class="svc-link"
-                        style="background:var(--wa)">💬 WhatsApp</a>
-                    <a href="mailto:rajm557i66@gmail.com" class="svc-link"
-                        style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7)">✉ rajm557i66@gmail.com</a>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- ===== FOOTER ===== -->
     <footer>
@@ -3795,19 +3682,19 @@
                             <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
                         </svg>
                     </a>
-                    <a href="https://www.youtube.com/@rajillustrator" target="_blank" class="f-social">
+                    <a href="https://www.youtube.com/@rajm1483" target="_blank" class="f-social">
                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
                             <path
                                 d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z" />
                         </svg>
                     </a>
-                    <a href="https://twitter.com/rajillustrator" target="_blank" class="f-social">
+                    <a href="https://x.com/rajillustrator" target="_blank" class="f-social">
                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
                             <path
                                 d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                         </svg>
                     </a>
-                    <a href="https://www.facebook.com/rajillustrator" target="_blank" class="f-social">
+                    <a href="https://www.facebook.com/rajillustrator/" target="_blank" class="f-social">
                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
                             <path
                                 d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
@@ -3819,7 +3706,7 @@
                                 d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                         </svg>
                     </a>
-                    <a href="mailto:rajm557i66@gmail.com" class="f-social"
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=rajm557166@gmail.com" target="_blank" class="f-social"
                         style="font-size:0.7rem;font-weight:700">✉</a>
                 </div>
             </div>
@@ -3847,22 +3734,10 @@
                     <li><a href="#contact">Collab</a></li>
                 </ul>
             </div>
-            <div class="footer-col">
-                <div class="footer-col-title">Contact</div>
-                <ul>
-                    <li><a href="https://www.instagram.com/raj_illustrator" target="_blank">Instagram DM</a></li>
-                    <li><a href="https://wa.me/919999999999" target="_blank">WhatsApp</a></li>
-                    <li><a href="mailto:rajm557i66@gmail.com">Email</a></li>
-                    <li><a href="http://linkedin.com/in/rajkumarillustrator" target="_blank">LinkedIn</a></li>
-                    <li><a href="https://tappr.in/rajillustrator1" target="_blank">All Links (Tappr)</a></li>
-                    <li><a href="https://www.instagram.com/reel/DV_h9CgE4h1/" target="_blank">Latest Reel</a></li>
-                </ul>
-            </div>
+
         </div>
         <div class="footer-bottom">
-            <div class="footer-copy">© 2025 Rajkumar M. · Freelance 2D Illustrator & Concept Artist · India · All rights
-                reserved.</div>
-            <a href="mailto:rajm557i66@gmail.com" class="footer-email">rajm557i66@gmail.com</a>
+            <div class="footer-copy">© 2025 Rajkumar M. · Freelance 2D Illustrator & Concept Artist · India · All rights reserved.</div>
         </div>
     </footer>
 

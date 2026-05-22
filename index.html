@@ -1,0 +1,3954 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rajkumar M — 2D Illustrator & Concept Artist</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=Caveat:wght@500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ink: #1a1208;
+            --cream: #f7f2e8;
+            --warm: #f0e6cc;
+            --orange: #e8622a;
+            --gold: #c9942a;
+            --sky: #6b9ab8;
+            --dusk: #7a5c8a;
+            --paper: #faf6ee;
+            --red: #cc2020;
+            --wa: #25D366
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            background: var(--paper);
+            color: var(--ink);
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 56px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s ease;
+            border-bottom: 1px solid transparent
+        }
+
+        nav.scrolled {
+            padding: 14px 56px;
+            background: rgba(250, 246, 238, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(26, 18, 8, 0.06);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05)
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--ink);
+            letter-spacing: -0.02em;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .nav-logo::before {
+            content: '';
+            display: block;
+            width: 10px;
+            height: 10px;
+            background: var(--orange);
+            border-radius: 50%
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 10px 28px;
+            border-radius: 40px;
+            border: 1px solid rgba(26, 18, 8, 0.04);
+            backdrop-filter: blur(4px);
+            transition: all 0.3s
+        }
+
+        nav.scrolled .nav-links {
+            background: transparent;
+            border-color: transparent;
+            padding: 8px 12px
+        }
+
+        .nav-links a {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink);
+            text-decoration: none;
+            opacity: 0.65;
+            transition: all 0.2s;
+            position: relative
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--orange);
+            transition: width 0.3s, left 0.3s
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            color: var(--orange)
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0
+        }
+
+        .nav-cta-link {
+            background: var(--orange) !important;
+            color: white !important;
+            opacity: 1 !important;
+            padding: 8px 20px;
+            border-radius: 20px
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            flex-direction: column;
+            gap: 6px;
+            z-index: 1001
+        }
+
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2px;
+            background: var(--ink);
+            transition: all 0.3s;
+            border-radius: 2px
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px)
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px)
+        }
+
+        /* ===== PAGE LOADER ===== */
+        .page-loader {
+            position: fixed;
+            inset: 0;
+            background: var(--ink);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.7s, visibility 0.7s
+        }
+
+        .page-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none
+        }
+
+        .loader-inner {
+            text-align: center
+        }
+
+        .loader-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--cream);
+            overflow: hidden
+        }
+
+        .loader-text span {
+            display: inline-block;
+            animation: loaderIn 0.6s cubic-bezier(0.6, 0, 0.4, 1) forwards;
+            transform: translateY(100%);
+            opacity: 0
+        }
+
+        @keyframes loaderIn {
+            to {
+                transform: translateY(0);
+                opacity: 1
+            }
+        }
+
+        .loader-bar {
+            width: 0;
+            height: 2px;
+            background: var(--orange);
+            margin-top: 20px;
+            animation: loaderBar 1.2s ease forwards
+        }
+
+        @keyframes loaderBar {
+            to {
+                width: 200px
+            }
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+            overflow: hidden
+        }
+
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 120px 64px 80px;
+            position: relative;
+            z-index: 2
+        }
+
+        .hero-tag {
+            font-family: 'Caveat', cursive;
+            font-size: 1.2rem;
+            color: var(--orange);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .hero-tag::before {
+            content: '';
+            display: inline-block;
+            width: 32px;
+            height: 2px;
+            background: var(--orange)
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.5rem, 6vw, 6rem);
+            font-weight: 900;
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            margin-bottom: 28px
+        }
+
+        .hero-title .line2 {
+            font-style: italic;
+            color: var(--orange)
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--ink);
+            opacity: 0.65;
+            max-width: 380px;
+            margin-bottom: 48px
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            align-items: center
+        }
+
+        .btn-primary {
+            background: var(--ink);
+            color: var(--cream);
+            padding: 16px 36px;
+            border-radius: 2px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--orange);
+            transition: left 0.3s;
+            z-index: -1
+        }
+
+        .btn-primary:hover::after {
+            left: 0
+        }
+
+        .btn-primary:hover {
+            color: white
+        }
+
+        .btn-secondary {
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--ink);
+            text-decoration: none;
+            opacity: 0.6;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s
+        }
+
+        .btn-secondary:hover {
+            opacity: 1;
+            gap: 14px
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            margin-top: 64px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(26, 18, 8, 0.12)
+        }
+
+        .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--ink)
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.5;
+            margin-top: 4px
+        }
+
+        .hero-right {
+            position: relative;
+            overflow: hidden
+        }
+
+        .hero-bg-panel {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #e8622a 0%, #c9942a 50%, #7a5c8a 100%)
+        }
+
+        .hero-art-frame {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 85%;
+            height: 90%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center
+        }
+
+        .scene {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden
+        }
+
+        .scene-sky {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, #1a2a4a 0%, #3d5a8a 30%, #e8622a 70%, #c9942a 100%)
+        }
+
+        .scene-sun {
+            position: absolute;
+            bottom: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: #f5c842;
+            box-shadow: 0 0 80px 40px rgba(245, 200, 66, 0.4);
+            animation: pulseSun 3s ease-in-out infinite
+        }
+
+        @keyframes pulseSun {
+
+            0%,
+            100% {
+                box-shadow: 0 0 80px 40px rgba(245, 200, 66, 0.4)
+            }
+
+            50% {
+                box-shadow: 0 0 120px 60px rgba(245, 200, 66, 0.6)
+            }
+        }
+
+        .scene-buildings {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 45%;
+            background: linear-gradient(var(--ink) var(--ink)) 5% bottom/80px 180px no-repeat, linear-gradient(var(--ink) var(--ink)) 18% bottom/60px 220px no-repeat, linear-gradient(var(--ink) var(--ink)) 30% bottom/100px 160px no-repeat, linear-gradient(var(--ink) var(--ink)) 45% bottom/70px 200px no-repeat, linear-gradient(var(--ink) var(--ink)) 60% bottom/90px 140px no-repeat, linear-gradient(var(--ink) var(--ink)) 75% bottom/65px 190px no-repeat, linear-gradient(var(--ink) var(--ink)) 88% bottom/85px 170px no-repeat, linear-gradient(var(--ink) var(--ink)) 0 bottom/100% 40px no-repeat
+        }
+
+        .win {
+            position: absolute;
+            width: 8px;
+            height: 10px;
+            background: rgba(245, 200, 66, 0.9);
+            border-radius: 1px;
+            animation: blinkWin 4s ease-in-out infinite
+        }
+
+        .win:nth-child(2n) {
+            animation-delay: 1.3s;
+            background: rgba(245, 200, 66, 0.5)
+        }
+
+        .win:nth-child(3n) {
+            animation-delay: 2.7s
+        }
+
+        @keyframes blinkWin {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0.3
+            }
+        }
+
+        .birds {
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            display: flex;
+            gap: 12px;
+            animation: flyBirds 8s linear infinite
+        }
+
+        .bird {
+            width: 20px;
+            height: 8px;
+            border-top: 2px solid white;
+            border-radius: 50% 50% 0 0/8px 8px 0 0;
+            border-left: 2px solid transparent;
+            border-right: 2px solid transparent;
+            opacity: 0.7;
+            position: relative
+        }
+
+        .bird::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 8px;
+            border-top: 2px solid white;
+            border-radius: 50% 50% 0 0/8px 8px 0 0;
+            left: -22px;
+            top: -2px
+        }
+
+        @keyframes flyBirds {
+            0% {
+                transform: translateX(0) translateY(0)
+            }
+
+            50% {
+                transform: translateX(60px) translateY(-20px)
+            }
+
+            100% {
+                transform: translateX(130px) translateY(-5px)
+            }
+        }
+
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s ease-in-out infinite
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.8;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: 0.2;
+                transform: scale(0.5)
+            }
+        }
+
+        .hero-badge {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            background: rgba(250, 246, 238, 0.95);
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(26, 18, 8, 0.2);
+            animation: floatBadge 3s ease-in-out infinite
+        }
+
+        @keyframes floatBadge {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-10px)
+            }
+        }
+
+        .hero-badge .badge-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--orange);
+            line-height: 1
+        }
+
+        .hero-badge .badge-text {
+            font-size: 0.55rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            opacity: 0.6;
+            line-height: 1.3
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            animation: fadeScroll 2s ease-in-out infinite;
+            z-index: 3
+        }
+
+        .scroll-hint .line {
+            width: 1px;
+            height: 48px;
+            background: var(--ink)
+        }
+
+        @keyframes fadeScroll {
+
+            0%,
+            100% {
+                opacity: 0.4
+            }
+
+            50% {
+                opacity: 0.8
+            }
+        }
+
+        /* ===== TICKER ===== */
+        .ticker-wrap {
+            background: var(--orange);
+            overflow: hidden;
+            padding: 12px 0;
+            white-space: nowrap
+        }
+
+        .ticker-content {
+            display: inline-flex;
+            animation: tickerMove 25s linear infinite;
+            gap: 0
+        }
+
+        .ticker-item {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: white;
+            padding: 0 40px;
+            opacity: 0.9
+        }
+
+        .ticker-item::after {
+            content: '✦';
+            margin-left: 40px;
+            opacity: 0.6
+        }
+
+        @keyframes tickerMove {
+            from {
+                transform: translateX(0)
+            }
+
+            to {
+                transform: translateX(-50%)
+            }
+        }
+
+        /* ===== SECTION SHARED ===== */
+        .section-label {
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.45;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 14px
+        }
+
+        .section-label::before {
+            content: '';
+            display: inline-block;
+            width: 28px;
+            height: 1px;
+            background: currentColor
+        }
+
+        /* ===== ABOUT ===== */
+        .about {
+            padding: 120px 64px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            background: var(--ink);
+            color: var(--cream);
+            position: relative;
+            overflow: hidden
+        }
+
+        .about::before {
+            content: 'RAJ';
+            position: absolute;
+            right: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: 'Playfair Display', serif;
+            font-size: 18rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.03);
+            pointer-events: none;
+            white-space: nowrap
+        }
+
+        .about-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 28px;
+            color: var(--cream)
+        }
+
+        .about-title em {
+            color: var(--orange);
+            font-style: italic
+        }
+
+        .about-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            opacity: 0.65;
+            margin-bottom: 20px;
+            color: var(--cream)
+        }
+
+        .about-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 36px
+        }
+
+        .skill-tag {
+            padding: 8px 18px;
+            border: 1px solid rgba(249, 242, 232, 0.2);
+            border-radius: 2px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--cream);
+            opacity: 0.7;
+            transition: all 0.2s;
+            cursor: default
+        }
+
+        .skill-tag:hover {
+            border-color: var(--orange);
+            color: var(--orange);
+            opacity: 1
+        }
+
+        .about-visual {
+            position: relative;
+            height: 480px
+        }
+
+        .about-card {
+            position: absolute;
+            border-radius: 4px;
+            overflow: hidden
+        }
+
+        .about-card-main {
+            width: 75%;
+            height: 80%;
+            top: 0;
+            right: 0;
+            background: linear-gradient(135deg, var(--orange), var(--gold));
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .about-card-accent {
+            width: 55%;
+            height: 50%;
+            bottom: 0;
+            left: 0;
+            background: var(--dusk);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px
+        }
+
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--cream);
+            line-height: 1.6;
+            opacity: 0.9
+        }
+
+        .about-extra {
+            margin-top: 36px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px
+        }
+
+        .about-fact {
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 3px
+        }
+
+        .about-fact-label {
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            margin-bottom: 6px
+        }
+
+        .about-fact-val {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--cream)
+        }
+
+        .about-fact-val em {
+            color: var(--orange);
+            font-style: normal
+        }
+
+        /* ===== SKILLS ===== */
+        .skills-section {
+            padding: 100px 64px;
+            background: var(--paper)
+        }
+
+        .skills-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            margin-bottom: 64px
+        }
+
+        .skills-title em {
+            color: var(--orange);
+            font-style: italic
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px
+        }
+
+        .skill-card {
+            padding: 36px 32px;
+            background: var(--warm);
+            border-radius: 3px;
+            border: 1px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden
+        }
+
+        .skill-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--orange);
+            transition: width 0.4s
+        }
+
+        .skill-card:hover {
+            border-color: rgba(232, 98, 42, 0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(26, 18, 8, 0.08)
+        }
+
+        .skill-card:hover::after {
+            width: 100%
+        }
+
+        .skill-card-icon {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            display: block
+        }
+
+        .skill-card-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px
+        }
+
+        .skill-card-desc {
+            font-size: 0.88rem;
+            line-height: 1.7;
+            opacity: 0.6;
+            margin-bottom: 16px
+        }
+
+        .skill-card-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px
+        }
+
+        .tool-chip {
+            font-size: 0.68rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            background: rgba(26, 18, 8, 0.06);
+            border-radius: 2px;
+            color: var(--ink);
+            opacity: 0.7
+        }
+
+        .skill-bar {
+            margin-top: 16px
+        }
+
+        .skill-bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            opacity: 0.5;
+            margin-bottom: 6px
+        }
+
+        .skill-bar-track {
+            height: 3px;
+            background: rgba(26, 18, 8, 0.1);
+            border-radius: 2px;
+            overflow: hidden
+        }
+
+        .skill-bar-fill {
+            height: 100%;
+            background: var(--orange);
+            border-radius: 2px;
+            width: 0;
+            transition: width 1.2s ease
+        }
+
+        .skill-bar-fill.animated {
+            width: var(--pct)
+        }
+
+        /* ===== SERVICES ===== */
+        .services {
+            padding: 120px 64px;
+            background: var(--cream)
+        }
+
+        .services-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 80px
+        }
+
+        .services-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            line-height: 1.1
+        }
+
+        .services-title em {
+            color: var(--orange);
+            font-style: italic
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: rgba(26, 18, 8, 0.08)
+        }
+
+        .service-card {
+            background: var(--cream);
+            padding: 48px 40px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--orange);
+            transition: width 0.4s
+        }
+
+        .service-card:hover::before {
+            width: 100%
+        }
+
+        .service-card:hover {
+            background: var(--warm);
+            transform: translateY(-4px)
+        }
+
+        .service-icon {
+            font-size: 2rem;
+            margin-bottom: 24px;
+            display: block
+        }
+
+        .service-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: rgba(26, 18, 8, 0.05);
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            line-height: 1
+        }
+
+        .service-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.01em
+        }
+
+        .service-desc {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            opacity: 0.6;
+            margin-bottom: 16px
+        }
+
+        .service-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px
+        }
+
+        .s-tag {
+            font-size: 0.65rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border: 1px solid rgba(26, 18, 8, 0.12);
+            border-radius: 2px;
+            opacity: 0.6
+        }
+
+        /* ===== PORTFOLIO ===== */
+        .portfolio {
+            padding: 120px 64px;
+            background: var(--paper)
+        }
+
+        .portfolio-header {
+            margin-bottom: 72px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end
+        }
+
+        .portfolio-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 900;
+            letter-spacing: -0.02em
+        }
+
+        .portfolio-title em {
+            color: var(--orange);
+            font-style: italic
+        }
+
+        .view-all-link {
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink);
+            text-decoration: none;
+            opacity: 0.6;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s
+        }
+
+        .view-all-link:hover {
+            opacity: 1;
+            gap: 14px
+        }
+
+        /* Portfolio tabs */
+        .portfolio-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 48px;
+            background: var(--warm);
+            padding: 4px;
+            border-radius: 3px;
+            width: fit-content
+        }
+
+        .ptab {
+            padding: 10px 24px;
+            border-radius: 2px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: transparent;
+            border: none;
+            color: var(--ink);
+            opacity: 0.5;
+            font-family: 'DM Sans', sans-serif
+        }
+
+        .ptab.active {
+            background: var(--ink);
+            color: var(--cream);
+            opacity: 1
+        }
+
+        /* Work grid */
+        .work-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 20px
+        }
+
+        .work-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 3px;
+            cursor: pointer;
+            background: var(--ink)
+        }
+
+        .work-item:first-child {
+            grid-row: 1/3
+        }
+
+        .work-bg {
+            width: 100%;
+            height: 100%;
+            min-height: 280px;
+            transition: transform 0.6s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden
+        }
+
+        .work-item:first-child .work-bg {
+            min-height: 560px
+        }
+
+        .work-item:hover .work-bg {
+            transform: scale(1.04)
+        }
+
+        .art-1 {
+            background: linear-gradient(160deg, #e8622a 0%, #c9942a 60%, #1a2a4a 100%)
+        }
+
+        .art-2 {
+            background: linear-gradient(200deg, #1a2a4a 0%, #3d5a8a 50%, #e8622a 100%)
+        }
+
+        .art-3 {
+            background: linear-gradient(135deg, #7a5c8a 0%, #3d5a8a 60%, #1a2a4a 100%)
+        }
+
+        .art-4 {
+            background: linear-gradient(180deg, #6b9ab8 0%, #e8b87a 60%, #e8622a 100%)
+        }
+
+        .art-5 {
+            background: linear-gradient(160deg, #2d4a1a 0%, #6b9a3a 50%, #c9e87a 100%)
+        }
+
+        .art-6 {
+            background: linear-gradient(135deg, #1a1208 0%, #c9942a 60%, #e8622a 100%)
+        }
+
+        .work-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(26, 18, 8, 0);
+            transition: background 0.3s;
+            display: flex;
+            align-items: flex-end;
+            padding: 28px
+        }
+
+        .work-item:hover .work-overlay {
+            background: rgba(26, 18, 8, 0.65)
+        }
+
+        .work-info {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: all 0.3s
+        }
+
+        .work-item:hover .work-info {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        .work-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 4px
+        }
+
+        .work-cat {
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--orange)
+        }
+
+        /* Placeholder image areas */
+        .img-placeholder {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block
+        }
+
+        .img-slot {
+            width: 100%;
+            height: 100%;
+            min-height: inherit;
+            background: var(--warm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: rgba(26, 18, 8, 0.3);
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase
+        }
+
+        .img-slot svg {
+            opacity: 0.3
+        }
+
+        /* ===== GALLERY / MEDIA ===== */
+        .gallery-section {
+            padding: 100px 64px;
+            background: var(--warm)
+        }
+
+        .gallery-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px
+        }
+
+        .gallery-title em {
+            color: var(--orange);
+            font-style: italic
+        }
+
+        .gallery-subtitle {
+            opacity: 0.6;
+            font-size: 0.95rem;
+            margin-bottom: 56px;
+            max-width: 480px;
+            line-height: 1.7
+        }
+
+        .gallery-filter {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 40px
+        }
+
+        .gf-btn {
+            padding: 8px 20px;
+            background: transparent;
+            border: 1px solid rgba(26, 18, 8, 0.15);
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--ink)
+        }
+
+        .gf-btn.active,
+        .gf-btn:hover {
+            background: var(--ink);
+            color: var(--cream);
+            border-color: var(--ink)
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 3px;
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 1;
+            background: var(--paper)
+        }
+
+        .gallery-item.wide {
+            grid-column: span 2
+        }
+
+        .gallery-item.tall {
+            grid-row: span 2
+        }
+
+        .gallery-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease
+        }
+
+        .gallery-item:hover .gallery-thumb {
+            transform: scale(1.06)
+        }
+
+        .gallery-thumb-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.35;
+            transition: transform 0.5s
+        }
+
+        .gallery-item:hover .gallery-thumb-placeholder {
+            transform: scale(1.06)
+        }
+
+        .gallery-cap {
+            position: absolute;
+            inset: 0;
+            background: rgba(26, 18, 8, 0);
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+            transition: background 0.3s
+        }
+
+        .gallery-item:hover .gallery-cap {
+            background: rgba(26, 18, 8, 0.55)
+        }
+
+        .gallery-cap-text {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: all 0.3s;
+            color: white
+        }
+
+        .gallery-item:hover .gallery-cap-text {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        .gallery-cap-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 2px
+        }
+
+        .gallery-cap-sub {
+            font-size: 0.68rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--orange)
+        }
+
+        /* Video gallery */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 48px
+        }
+
+        .video-item {
+            position: relative;
+            border-radius: 3px;
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 16/9;
+            background: var(--ink)
+        }
+
+        .video-thumb-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #1a2a4a, #3d5a8a)
+        }
+
+        .play-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: rgba(232, 98, 42, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s, background 0.3s
+        }
+
+        .video-item:hover .play-btn {
+            transform: scale(1.15);
+            background: var(--orange)
+        }
+
+        .video-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            padding: 0 16px
+        }
+
+        .video-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: none
+        }
+
+        .video-item.playing .video-frame {
+            display: block
+        }
+
+        .video-item.playing .video-thumb-placeholder {
+            display: none
+        }
+
+        .video-embed-url {
+            display: none
+        }
+
+        /* ===== CLIENTS ===== */
+        .clients-section {
+            padding: 80px 64px;
+            background: var(--ink)
+        }
+
+        .clients-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            margin-bottom: 56px;
+            color: var(--cream)
+        }
+
+        .clients-title em {
+            color: var(--orange);
+            font-style: italic
+        }
+
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+            background: rgba(255, 255, 255, 0.04)
+        }
+
+        .client-card {
+            background: var(--ink);
+            padding: 40px 32px;
+            text-align: center;
+            transition: background 0.3s;
+            border: 1px solid transparent
+        }
+
+        .client-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(232, 98, 42, 0.3)
+        }
+
+        .client-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--orange)
+        }
+
+        .client-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--cream);
+            margin-bottom: 4px
+        }
+
+        .client-type {
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            color: var(--cream)
+        }
+
+        .client-project {
+            font-size: 0.82rem;
+            opacity: 0.55;
+            color: var(--cream);
+            margin-top: 8px;
+            line-height: 1.5
+        }
+
+        /* ===== EXPERIENCE + EDUCATION ===== */
+        .exp-section {
+            padding: 100px 64px;
+            background: var(--paper)
+        }
+
+        .exp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px
+        }
+
+        .exp-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            margin-bottom: 64px
+        }
+
+        .exp-title em {
+            color: var(--orange);
+            font-style: italic
+        }
+
+        .exp-col-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 16px
+        }
+
+        .exp-col-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 32px;
+            background: var(--orange)
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 32px
+        }
+
+        .timeline-item {
+            padding: 28px 32px;
+            background: var(--warm);
+            border-radius: 3px;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+            position: relative
+        }
+
+        .timeline-item:hover {
+            border-left-color: var(--orange);
+            transform: translateX(6px)
+        }
+
+        .timeline-date {
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 8px
+        }
+
+        .timeline-role {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 4px
+        }
+
+        .timeline-org {
+            font-size: 0.88rem;
+            opacity: 0.6;
+            margin-bottom: 8px
+        }
+
+        .timeline-desc {
+            font-size: 0.85rem;
+            line-height: 1.7;
+            opacity: 0.55
+        }
+
+        /* ===== PROCESS ===== */
+        .process {
+            padding: 120px 64px;
+            background: var(--warm)
+        }
+
+        .process-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            margin-bottom: 80px
+        }
+
+        .process-title em {
+            color: var(--orange);
+            font-style: italic
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            position: relative
+        }
+
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 28px;
+            left: 12%;
+            right: 12%;
+            height: 1px;
+            background: rgba(26, 18, 8, 0.15)
+        }
+
+        .process-step {
+            padding: 0 24px
+        }
+
+        .step-dot {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 900;
+            margin-bottom: 28px;
+            position: relative;
+            z-index: 1
+        }
+
+        .process-step:nth-child(2) .step-dot {
+            background: var(--orange)
+        }
+
+        .process-step:nth-child(3) .step-dot {
+            background: var(--sky)
+        }
+
+        .process-step:nth-child(4) .step-dot {
+            background: var(--dusk)
+        }
+
+        .step-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px
+        }
+
+        .step-desc {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            opacity: 0.6
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials {
+            padding: 120px 64px;
+            background: var(--ink);
+            color: var(--cream)
+        }
+
+        .test-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            margin-bottom: 72px;
+            color: var(--cream)
+        }
+
+        .test-title em {
+            color: var(--orange);
+            font-style: italic
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px
+        }
+
+        .test-card {
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 3px;
+            transition: border-color 0.3s
+        }
+
+        .test-card:hover {
+            border-color: var(--orange)
+        }
+
+        .test-quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--cream);
+            opacity: 0.85;
+            margin-bottom: 28px
+        }
+
+        .test-quote::before {
+            content: '"';
+            font-size: 3rem;
+            color: var(--orange);
+            line-height: 0;
+            vertical-align: -1rem;
+            margin-right: 4px
+        }
+
+        .test-author {
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            opacity: 0.5
+        }
+
+        .test-stars {
+            color: var(--gold);
+            font-size: 0.9rem;
+            margin-bottom: 16px
+        }
+
+        /* ===== CONTACT ===== */
+        .contact {
+            padding: 120px 64px;
+            background: var(--paper);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: start
+        }
+
+        .contact-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 4.5vw, 4rem);
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            margin-bottom: 28px
+        }
+
+        .contact-title em {
+            color: var(--orange);
+            font-style: italic
+        }
+
+        .contact-desc {
+            font-size: 1rem;
+            line-height: 1.7;
+            opacity: 0.6;
+            margin-bottom: 48px;
+            max-width: 380px
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 14px
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 18px 22px;
+            background: var(--warm);
+            border-radius: 3px;
+            text-decoration: none;
+            color: var(--ink);
+            transition: all 0.3s;
+            border: 1px solid transparent
+        }
+
+        .contact-method:hover {
+            border-color: var(--orange);
+            transform: translateX(6px)
+        }
+
+        .method-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--ink);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            color: white
+        }
+
+        .method-label {
+            font-size: 0.68rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            opacity: 0.45;
+            margin-bottom: 2px
+        }
+
+        .method-value {
+            font-weight: 500;
+            font-size: 0.92rem
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px
+        }
+
+        .form-section-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .form-label {
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            opacity: 0.5
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            padding: 15px 18px;
+            background: var(--warm);
+            border: 1px solid rgba(26, 18, 8, 0.12);
+            border-radius: 2px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            color: var(--ink);
+            outline: none;
+            transition: border-color 0.2s;
+            resize: none;
+            appearance: none;
+            -webkit-appearance: none
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            border-color: var(--orange)
+        }
+
+        .form-textarea {
+            height: 120px
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px
+        }
+
+        .submit-btn {
+            padding: 18px 40px;
+            background: var(--ink);
+            color: var(--cream);
+            border: none;
+            border-radius: 2px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            width: 100%
+        }
+
+        .submit-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--orange);
+            transition: left 0.3s;
+            z-index: -1
+        }
+
+        .submit-btn:hover::after {
+            left: 0
+        }
+
+        .submit-btn:hover {
+            color: white
+        }
+
+        .wa-submit-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 18px 40px;
+            background: var(--wa);
+            color: white;
+            border: none;
+            border-radius: 2px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 8px
+        }
+
+        .wa-submit-btn:hover {
+            background: #1aad52;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3)
+        }
+
+        .form-success {
+            display: none;
+            padding: 24px;
+            background: rgba(37, 211, 102, 0.08);
+            border: 1px solid var(--wa);
+            border-radius: 3px;
+            text-align: center
+        }
+
+        .form-success.show {
+            display: block
+        }
+
+        /* ===== SOCIAL LINKS SECTION ===== */
+        .social-section {
+            padding: 80px 64px;
+            background: var(--warm);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center
+        }
+
+        .social-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px
+        }
+
+        .social-title em {
+            color: var(--orange);
+            font-style: italic
+        }
+
+        .social-desc {
+            opacity: 0.6;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 40px
+        }
+
+        .social-links-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px
+        }
+
+        .social-link-btn {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 24px;
+            border-radius: 3px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            transition: all 0.3s;
+            color: white
+        }
+
+        .social-link-btn:hover {
+            transform: translateX(8px);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18)
+        }
+
+        .slb-instagram {
+            background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045)
+        }
+
+        .slb-youtube {
+            background: #ff0000
+        }
+
+        .slb-twitter {
+            background: #000
+        }
+
+        .slb-facebook {
+            background: #1877f2
+        }
+
+        .slb-whatsapp {
+            background: var(--wa)
+        }
+
+        .slb-behance {
+            background: #1769ff
+        }
+
+        .slb-linkedin {
+            background: #0a66c2
+        }
+
+        .slb-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.18);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0
+        }
+
+        .social-card-visual {
+            background: var(--ink);
+            border-radius: 16px;
+            padding: 40px 32px;
+            text-align: center
+        }
+
+        .svc-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--orange), var(--gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: white
+        }
+
+        .svc-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--cream);
+            margin-bottom: 6px
+        }
+
+        .svc-handle {
+            font-size: 0.82rem;
+            color: var(--orange);
+            margin-bottom: 28px
+        }
+
+        .svc-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px
+        }
+
+        .svc-link {
+            display: block;
+            padding: 12px;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            transition: opacity 0.2s
+        }
+
+        .svc-link:hover {
+            opacity: 0.85
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--ink);
+            color: var(--cream);
+            padding: 80px 64px 40px
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06)
+        }
+
+        .footer-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 16px
+        }
+
+        .footer-brand span {
+            color: var(--orange)
+        }
+
+        .footer-tagline {
+            font-size: 0.85rem;
+            opacity: 0.45;
+            line-height: 1.7;
+            max-width: 240px;
+            margin-bottom: 32px
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .f-social {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--cream);
+            text-decoration: none;
+            transition: all 0.2s
+        }
+
+        .f-social:hover {
+            border-color: var(--orange);
+            color: var(--orange);
+            transform: translateY(-3px)
+        }
+
+        .footer-col-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.35;
+            margin-bottom: 24px
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px
+        }
+
+        .footer-col ul a {
+            font-size: 0.88rem;
+            color: var(--cream);
+            text-decoration: none;
+            opacity: 0.55;
+            transition: opacity 0.2s
+        }
+
+        .footer-col ul a:hover {
+            opacity: 1
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .footer-copy {
+            font-size: 0.78rem;
+            opacity: 0.3
+        }
+
+        .footer-email {
+            font-size: 0.82rem;
+            color: var(--orange);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s
+        }
+
+        .footer-email:hover {
+            opacity: 1
+        }
+
+        /* ===== FLOATING BUTTONS ===== */
+        .float-group {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 900
+        }
+
+        .float-btn {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0;
+            position: relative
+        }
+
+        .float-btn:hover {
+            transform: scale(1.1) translateY(-2px);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25)
+        }
+
+        .float-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: white;
+            flex-shrink: 0
+        }
+
+        .float-wa {
+            background: var(--wa)
+        }
+
+        .float-ig {
+            background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045)
+        }
+
+        .float-top {
+            background: var(--ink);
+            color: white;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s, transform 0.3s, box-shadow 0.3s
+        }
+
+        .float-top.show {
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        .float-top svg {
+            fill: white
+        }
+
+        .float-tooltip {
+            position: absolute;
+            right: 66px;
+            background: var(--ink);
+            color: var(--cream);
+            font-size: 0.68rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 6px 12px;
+            border-radius: 2px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s
+        }
+
+        .float-btn:hover .float-tooltip {
+            opacity: 1
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s ease, transform 0.7s ease
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        .reveal-delay-1 {
+            transition-delay: 0.1s
+        }
+
+        .reveal-delay-2 {
+            transition-delay: 0.2s
+        }
+
+        .reveal-delay-3 {
+            transition-delay: 0.3s
+        }
+
+        .reveal-delay-4 {
+            transition-delay: 0.4s
+        }
+
+        /* ===== LIGHTBOX ===== */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(26, 18, 8, 0.95);
+            z-index: 9990;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 40px
+        }
+
+        .lightbox.open {
+            display: flex
+        }
+
+        .lightbox-inner {
+            max-width: 900px;
+            width: 100%;
+            position: relative
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s
+        }
+
+        .lightbox-close:hover {
+            background: var(--orange)
+        }
+
+        .lightbox-img {
+            width: 100%;
+            border-radius: 3px;
+            display: block
+        }
+
+        .lightbox-caption {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.82rem;
+            text-align: center;
+            margin-top: 16px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase
+        }
+
+        /* ===== MOBILE ===== */
+        @media(max-width:1024px) {
+            .clients-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr)
+            }
+
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        @media(max-width:900px) {
+            nav {
+                padding: 16px 24px
+            }
+
+            nav.scrolled {
+                padding: 12px 24px
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: var(--paper);
+                z-index: 200;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                gap: 32px;
+                padding: 0;
+                border-radius: 0;
+                border: none
+            }
+
+            .nav-links.open {
+                display: flex
+            }
+
+            .nav-links.open a {
+                font-size: 1.4rem;
+                opacity: 0.8
+            }
+
+            .hamburger {
+                display: flex
+            }
+
+            .hero {
+                grid-template-columns: 1fr
+            }
+
+            .hero-left {
+                padding: 90px 24px 60px
+            }
+
+            .hero-right {
+                height: 55vw;
+                min-height: 260px
+            }
+
+            .about,
+            .services,
+            .portfolio,
+            .process,
+            .testimonials,
+            .contact,
+            .exp-section,
+            .gallery-section,
+            .social-section,
+            .skills-section,
+            .clients-section {
+                padding: 72px 24px
+            }
+
+            .about {
+                grid-template-columns: 1fr
+            }
+
+            .about-visual {
+                height: 280px
+            }
+
+            .services-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 24px
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr
+            }
+
+            .work-grid {
+                grid-template-columns: 1fr
+            }
+
+            .work-item:first-child {
+                grid-row: auto
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px
+            }
+
+            .process-steps::before {
+                display: none
+            }
+
+            .test-grid {
+                grid-template-columns: 1fr
+            }
+
+            .contact {
+                grid-template-columns: 1fr;
+                gap: 48px
+            }
+
+            .social-section {
+                grid-template-columns: 1fr;
+                gap: 40px
+            }
+
+            .exp-grid {
+                grid-template-columns: 1fr
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .gallery-item.wide {
+                grid-column: span 1
+            }
+
+            .gallery-item.tall {
+                grid-row: span 1
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr
+            }
+
+            .clients-grid {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center
+            }
+
+            .float-group {
+                right: 16px;
+                bottom: 16px
+            }
+
+            .float-btn {
+                width: 48px;
+                height: 48px
+            }
+
+            .form-row {
+                grid-template-columns: 1fr
+            }
+
+            .hero-stats {
+                gap: 24px
+            }
+        }
+
+        @media(max-width:600px) {
+            .clients-grid {
+                grid-template-columns: 1fr
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== LOADER ===== -->
+    <div class="page-loader" id="loader">
+        <div class="loader-inner">
+            <div class="loader-text">
+                <span style="animation-delay:0s">R</span><span style="animation-delay:.05s">a</span><span
+                    style="animation-delay:.1s">j</span><span style="animation-delay:.15s">k</span><span
+                    style="animation-delay:.2s">u</span><span style="animation-delay:.25s">m</span><span
+                    style="animation-delay:.3s">a</span><span style="animation-delay:.35s">r</span>
+            </div>
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+    <!-- ===== LIGHTBOX ===== -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-inner">
+            <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+            <img class="lightbox-img" id="lbImg" src="" alt="">
+            <div class="lightbox-caption" id="lbCap"></div>
+        </div>
+    </div>
+
+    <!-- ===== FLOATING BUTTONS ===== -->
+    <div class="float-group">
+        <button class="float-btn float-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+            <span class="float-tooltip">Back to top</span>
+            <svg viewBox="0 0 24 24">
+                <path d="M7 14l5-5 5 5" />
+            </svg>
+        </button>
+        <a href="https://www.instagram.com/raj_illustrator" target="_blank" class="float-btn float-ig">
+            <span class="float-tooltip">DM on Instagram</span>
+            <svg viewBox="0 0 24 24">
+                <rect x="2" y="2" width="20" height="20" rx="5" stroke="white" stroke-width="2" fill="none" />
+                <circle cx="12" cy="12" r="4" stroke="white" stroke-width="2" fill="none" />
+                <circle cx="17.5" cy="6.5" r="1" />
+            </svg>
+        </a>
+        <a href="https://wa.me/919999999999?text=Hi%20Rajkumar!%20I%20saw%20your%20portfolio%20and%20want%20to%20commission%20artwork%20from%20you."
+            target="_blank" class="float-btn float-wa">
+            <span class="float-tooltip">WhatsApp</span>
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg>
+        </a>
+    </div>
+
+    <!-- ===== NAV ===== -->
+    <nav id="navbar">
+        <a href="#" class="nav-logo">Rajkumar M.</a>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#clients">Clients</a></li>
+            <li><a href="#contact" class="nav-cta-link">Commission</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="hero-left">
+            <div class="hero-tag reveal">Freelance 2D Illustrator & Concept Artist · India</div>
+            <h1 class="hero-title reveal reveal-delay-1">
+                <span>Stories</span><br>
+                <span class="line2">drawn from</span><br>
+                <span>the soul.</span>
+            </h1>
+            <p class="hero-desc reveal reveal-delay-2">
+                I'm Rajkumar — an illustrator and concept artist based in India. Creating thoughtful,
+                illustration-driven visual experiences that connect with people.
+            </p>
+            <div class="hero-cta reveal reveal-delay-3">
+                <a href="#contact" class="btn-primary">Commission a Piece →</a>
+                <a href="#work" class="btn-secondary">View Portfolio →</a>
+            </div>
+            <div class="hero-stats reveal">
+                <div>
+                    <div class="stat-num">44K+</div>
+                    <div class="stat-label">Followers</div>
+                </div>
+                <div>
+                    <div class="stat-num">429</div>
+                    <div class="stat-label">Works</div>
+                </div>
+                <div>
+                    <div class="stat-num">61K</div>
+                    <div class="stat-label">Top Post Likes</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-right">
+            <div class="hero-bg-panel"></div>
+            <div class="hero-art-frame">
+                <div class="scene">
+                    <div class="scene-sky"></div>
+                    <div class="scene-sun"></div>
+                    <div class="star" style="top:8%;left:15%;animation-delay:0s;width:4px;height:4px"></div>
+                    <div class="star" style="top:12%;left:40%;animation-delay:.8s"></div>
+                    <div class="star" style="top:6%;left:65%;animation-delay:1.5s;width:4px;height:4px"></div>
+                    <div class="star" style="top:18%;left:80%;animation-delay:.4s"></div>
+                    <div class="birds">
+                        <div class="bird"></div>
+                        <div class="bird" style="transform:translateY(-8px)"></div>
+                        <div class="bird" style="transform:translateY(4px)"></div>
+                    </div>
+                    <div class="scene-buildings"></div>
+                </div>
+            </div>
+            <div class="hero-badge">
+                <div class="badge-num">61K</div>
+                <div class="badge-text">Likes on<br>Top Post</div>
+            </div>
+        </div>
+        <div class="scroll-hint"><span>Scroll</span>
+            <div class="line"></div>
+        </div>
+    </section>
+
+    <!-- ===== TICKER ===== -->
+    <div class="ticker-wrap">
+        <div class="ticker-content">
+            <span class="ticker-item">2D Illustration</span><span class="ticker-item">Concept Art</span><span
+                class="ticker-item">Movie Poster Design</span><span class="ticker-item">Vector Illustration</span><span
+                class="ticker-item">Character Design</span><span class="ticker-item">Motion Graphics</span><span
+                class="ticker-item">Merchandising</span><span class="ticker-item">Digital Art</span>
+            <span class="ticker-item">2D Illustration</span><span class="ticker-item">Concept Art</span><span
+                class="ticker-item">Movie Poster Design</span><span class="ticker-item">Vector Illustration</span><span
+                class="ticker-item">Character Design</span><span class="ticker-item">Motion Graphics</span><span
+                class="ticker-item">Merchandising</span><span class="ticker-item">Digital Art</span>
+        </div>
+    </div>
+
+    <!-- ===== ABOUT ===== -->
+    <section class="about" id="about">
+        <div>
+            <div class="section-label" style="color:var(--cream)">Who I am</div>
+            <h2 class="about-title reveal">Crafting worlds<br>one <em>frame</em> at a time.</h2>
+            <p class="about-text reveal reveal-delay-1">
+                I'm Rajkumar M. — a freelance illustrator and concept artist based in India. I'm passionate about
+                creating thoughtful, illustration-driven visual experiences that connect with people. I'm
+                detail-oriented, hardworking, and always eager to learn and evolve creatively.
+            </p>
+            <p class="about-text reveal reveal-delay-2">
+                With a B.Sc in Visual Communication from Nehru Arts & Science College, Coimbatore, and 7+ years of
+                freelance experience since 2018, I've worked with major clients including AGS Entertainment, Think
+                Music, KVN Productions, Vetri E-Square, and many more.
+            </p>
+            <div class="about-extra reveal reveal-delay-3">
+                <div class="about-fact">
+                    <div class="about-fact-label">Education</div>
+                    <div class="about-fact-val">B.Sc Visual<br>Communication</div>
+                </div>
+                <div class="about-fact">
+                    <div class="about-fact-label">Experience</div>
+                    <div class="about-fact-val"><em>2018</em> – Present</div>
+                </div>
+                <div class="about-fact">
+                    <div class="about-fact-label">College</div>
+                    <div class="about-fact-val">Nehru Arts &amp;<br>Science College</div>
+                </div>
+                <div class="about-fact">
+                    <div class="about-fact-label">Contact</div>
+                    <div class="about-fact-val" style="font-size:0.85rem">rajm557i66@<br>gmail.com</div>
+                </div>
+            </div>
+            <div class="about-skills reveal">
+                <span class="skill-tag">2D Illustration</span>
+                <span class="skill-tag">Concept Art</span>
+                <span class="skill-tag">Poster Design</span>
+                <span class="skill-tag">Vector Art</span>
+                <span class="skill-tag">Character Design</span>
+                <span class="skill-tag">Motion Graphics</span>
+                <span class="skill-tag">Adobe Suite</span>
+                <span class="skill-tag">Digital Art</span>
+            </div>
+        </div>
+        <div class="about-visual reveal">
+            <div class="about-card about-card-main">
+                <svg width="180" height="220" viewBox="0 0 180 220" style="opacity:0.85">
+                    <ellipse cx="90" cy="190" rx="55" ry="40" fill="#2a3a6a" />
+                    <ellipse cx="90" cy="100" rx="45" ry="52" fill="#e8b090" />
+                    <ellipse cx="90" cy="72" rx="48" ry="35" fill="#1a1208" />
+                    <ellipse cx="76" cy="100" rx="6" ry="7" fill="#1a1208" />
+                    <ellipse cx="104" cy="100" rx="6" ry="7" fill="#1a1208" />
+                    <ellipse cx="77" cy="98" rx="2" ry="2.5" fill="white" opacity="0.6" />
+                    <ellipse cx="105" cy="98" rx="2" ry="2.5" fill="white" opacity="0.6" />
+                    <ellipse cx="90" cy="112" rx="4" ry="5" fill="#c89070" opacity="0.6" />
+                    <path d="M 80 124 Q 90 132 100 124" stroke="#1a1208" stroke-width="2" fill="none"
+                        stroke-linecap="round" />
+                    <path d="M 60 155 L 90 145 L 120 155" stroke="white" stroke-width="2" fill="none" />
+                </svg>
+            </div>
+            <div class="about-card about-card-accent">
+                <p class="quote-text">"I'm passionate about creating thoughtful, illustration-driven visual experiences
+                    that connect with people."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SKILLS ===== -->
+    <section class="skills-section" id="skills">
+        <div class="section-label">What I do best</div>
+        <h2 class="skills-title">Creative <em>skills</em><br>& expertise.</h2>
+        <div class="skills-grid">
+            <div class="skill-card reveal">
+                <span class="skill-card-icon">🎨</span>
+                <div class="skill-card-name">Digital Illustration</div>
+                <p class="skill-card-desc">Expressive 2D illustration with mood, emotion and storytelling — from
+                    cinematic posters to character portraits.</p>
+                <div class="skill-card-tools"><span class="tool-chip">Adobe Illustrator</span><span
+                        class="tool-chip">Photoshop</span><span class="tool-chip">Procreate</span></div>
+                <div class="skill-bar">
+                    <div class="skill-bar-label"><span>Proficiency</span><span>95%</span></div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="--pct:95%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="skill-card reveal reveal-delay-1">
+                <span class="skill-card-icon">✏️</span>
+                <div class="skill-card-name">Concept Art</div>
+                <p class="skill-card-desc">Character design, environment design, prop design & vehicle design for games,
+                    films and animation.</p>
+                <div class="skill-card-tools"><span class="tool-chip">Character Design</span><span class="tool-chip">Env
+                        Design</span><span class="tool-chip">Prop Design</span></div>
+                <div class="skill-bar">
+                    <div class="skill-bar-label"><span>Proficiency</span><span>90%</span></div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="--pct:90%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="skill-card reveal reveal-delay-2">
+                <span class="skill-card-icon">🎬</span>
+                <div class="skill-card-name">Poster & Merchandising</div>
+                <p class="skill-card-desc">Movie tribute posters, vector illustration, graphic design and t-shirt design
+                    for brands and entertainment clients.</p>
+                <div class="skill-card-tools"><span class="tool-chip">Vector Illustration</span><span
+                        class="tool-chip">Graphic Design</span><span class="tool-chip">T-Shirt Design</span></div>
+                <div class="skill-bar">
+                    <div class="skill-bar-label"><span>Proficiency</span><span>95%</span></div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="--pct:95%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="skill-card reveal">
+                <span class="skill-card-icon">🖼️</span>
+                <div class="skill-card-name">Motion & Video Art</div>
+                <p class="skill-card-desc">Title frames for promo videos, lyrical video thumbnails and motion graphics
+                    for music and film productions.</p>
+                <div class="skill-card-tools"><span class="tool-chip">Motion Graphics</span><span
+                        class="tool-chip">After Effects</span><span class="tool-chip">Thumbnails</span></div>
+                <div class="skill-bar">
+                    <div class="skill-bar-label"><span>Proficiency</span><span>80%</span></div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="--pct:80%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="skill-card reveal reveal-delay-1">
+                <span class="skill-card-icon">🏛️</span>
+                <div class="skill-card-name">Interior & Large Scale</div>
+                <p class="skill-card-desc">Large-scale vector illustration for cinema interiors, murals and exhibition
+                    spaces — including 6–8 month contract projects.</p>
+                <div class="skill-card-tools"><span class="tool-chip">Vector Art</span><span class="tool-chip">Large
+                        Format</span><span class="tool-chip">Interior Design</span></div>
+                <div class="skill-bar">
+                    <div class="skill-bar-label"><span>Proficiency</span><span>88%</span></div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="--pct:88%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="skill-card reveal reveal-delay-2">
+                <span class="skill-card-icon">🎭</span>
+                <div class="skill-card-name">Realistic Digital Art</div>
+                <p class="skill-card-desc">Hyper-realistic digital illustration for films, web series and commercial
+                    projects with cinematic quality.</p>
+                <div class="skill-card-tools"><span class="tool-chip">Digital Painting</span><span
+                        class="tool-chip">Realistic Art</span><span class="tool-chip">Film Art</span></div>
+                <div class="skill-bar">
+                    <div class="skill-bar-label"><span>Proficiency</span><span>85%</span></div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="--pct:85%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SERVICES ===== -->
+    <section class="services" id="services">
+        <div class="services-header">
+            <div>
+                <div class="section-label">What I offer</div>
+                <h2 class="services-title">Art that <em>speaks</em><br>for itself.</h2>
+            </div>
+            <a href="#contact" class="btn-primary" style="flex-shrink:0">Get a Quote →</a>
+        </div>
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <span class="service-num">01</span><span class="service-icon">🎨</span>
+                <div class="service-name">Character Illustration</div>
+                <p class="service-desc">Detailed character art with personality, emotion, and story — portraits to full
+                    character sheets with costume variants.</p>
+                <div class="service-tags"><span class="s-tag">Character Design</span><span
+                        class="s-tag">Portraits</span><span class="s-tag">Expression Sheets</span></div>
+            </div>
+            <div class="service-card reveal reveal-delay-1">
+                <span class="service-num">02</span><span class="service-icon">🎬</span>
+                <div class="service-name">Movie & Tribute Posters</div>
+                <p class="service-desc">Cinematic-quality poster art and movie tribute illustrations with dramatic
+                    lighting, composition and atmosphere.</p>
+                <div class="service-tags"><span class="s-tag">Movie Posters</span><span class="s-tag">Tribute
+                        Art</span><span class="s-tag">Fan Art</span></div>
+            </div>
+            <div class="service-card reveal reveal-delay-2">
+                <span class="service-num">03</span><span class="service-icon">🏙️</span>
+                <div class="service-name">Concept Art</div>
+                <p class="service-desc">Full concept art pipeline — character, environment, prop and vehicle design for
+                    games, films and animation.</p>
+                <div class="service-tags"><span class="s-tag">Environment</span><span class="s-tag">Props</span><span
+                        class="s-tag">Vehicles</span></div>
+            </div>
+            <div class="service-card reveal">
+                <span class="service-num">04</span><span class="service-icon">🖼️</span>
+                <div class="service-name">Motion Graphics & Titles</div>
+                <p class="service-desc">Title frame illustrations for promo videos and lyrical video thumbnails. Worked
+                    with KVN Productions & Think Music.</p>
+                <div class="service-tags"><span class="s-tag">Title Frames</span><span
+                        class="s-tag">Thumbnails</span><span class="s-tag">Motion</span></div>
+            </div>
+            <div class="service-card reveal reveal-delay-1">
+                <span class="service-num">05</span><span class="service-icon">👕</span>
+                <div class="service-name">Merchandising & Print</div>
+                <p class="service-desc">Vector illustration and graphic design for t-shirts, prints, merch collections
+                    and brand campaigns.</p>
+                <div class="service-tags"><span class="s-tag">T-Shirt Design</span><span class="s-tag">Print</span><span
+                        class="s-tag">Merch</span></div>
+            </div>
+            <div class="service-card reveal reveal-delay-2">
+                <span class="service-num">06</span><span class="service-icon">🤝</span>
+                <div class="service-name">Brand Collaboration</div>
+                <p class="service-desc">Illustration for social campaigns, publicity materials, interior installations
+                    and long-term brand partnerships.</p>
+                <div class="service-tags"><span class="s-tag">Brand Art</span><span class="s-tag">Social
+                        Media</span><span class="s-tag">Interior</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PORTFOLIO ===== -->
+    <section class="portfolio" id="work">
+        <div class="portfolio-header">
+            <div>
+                <div class="section-label">Selected works</div>
+                <h2 class="portfolio-title">A glimpse of<br>the <em>journey.</em></h2>
+            </div>
+            <a href="https://www.instagram.com/raj_illustrator" target="_blank" class="view-all-link">View on Instagram
+                →</a>
+        </div>
+
+        <div class="portfolio-tabs">
+            <button class="ptab active" onclick="filterWork('all',this)">All</button>
+            <button class="ptab" onclick="filterWork('poster',this)">Posters</button>
+            <button class="ptab" onclick="filterWork('concept',this)">Concept Art</button>
+            <button class="ptab" onclick="filterWork('character',this)">Characters</button>
+            <button class="ptab" onclick="filterWork('scene',this)">Scenes</button>
+        </div>
+
+        <div class="work-grid">
+            <div class="work-item" data-cat="poster">
+                <div class="work-bg art-1">
+                    <!-- REPLACE: Add your movie poster image here -->
+                    <!-- <img src="your-poster-image.jpg" class="img-placeholder" alt="Golden Hour"> -->
+                    <svg viewBox="0 0 400 560" xmlns="http://www.w3.org/2000/svg"
+                        style="width:100%;height:100%;position:absolute;top:0;left:0">
+                        <defs>
+                            <radialGradient id="g1" cx="60%" cy="35%">
+                                <stop offset="0%" stop-color="#f5c842" stop-opacity="0.8" />
+                                <stop offset="100%" stop-color="transparent" />
+                            </radialGradient>
+                        </defs>
+                        <circle cx="240" cy="196" r="80" fill="#f5c842" opacity="0.9" />
+                        <circle cx="240" cy="196" r="100" fill="url(#g1)" />
+                        <rect x="140" y="340" width="40" height="160" fill="#1a1208" rx="8" />
+                        <ellipse cx="160" cy="320" rx="30" ry="35" fill="#1a1208" />
+                        <line x1="140" y1="390" x2="80" y2="340" stroke="#1a1208" stroke-width="20"
+                            stroke-linecap="round" />
+                        <rect x="143" y="345" width="34" height="80" fill="#f0ece0" rx="4" />
+                        <rect x="0" y="500" width="400" height="60" fill="#1a1208" opacity="0.6" />
+                    </svg>
+                </div>
+                <div class="work-overlay">
+                    <div class="work-info">
+                        <div class="work-title">Movie Tribute Poster</div>
+                        <div class="work-cat">Publicity Campaign · AGS</div>
+                    </div>
+                </div>
+            </div>
+            <div class="work-item" data-cat="scene">
+                <div class="work-bg art-2">
+                    <svg viewBox="0 0 300 280" xmlns="http://www.w3.org/2000/svg"
+                        style="width:100%;height:100%;position:absolute;top:0;left:0">
+                        <rect x="80" y="30" width="140" height="250" fill="#2a1a0a" />
+                        <rect x="95" y="50" width="30" height="35" fill="#f5c842" opacity="0.8" rx="2" />
+                        <rect x="135" y="50" width="30" height="35" fill="#f5c842" opacity="0.5" rx="2" />
+                        <rect x="70" y="160" width="160" height="8" fill="#5a4a3a" />
+                        <ellipse cx="170" cy="155" rx="12" ry="14" fill="#c88060" />
+                        <rect x="162" y="155" width="16" height="30" fill="#e05020" rx="3" />
+                        <ellipse cx="120" cy="255" rx="14" ry="16" fill="#e8b080" />
+                        <rect x="110" y="260" width="20" height="35" fill="#3a4a6a" rx="3" />
+                        <circle cx="250" cy="50" r="30" fill="#f5e890" opacity="0.9" />
+                        <circle cx="262" cy="44" r="28" fill="#3d5a8a" />
+                    </svg>
+                </div>
+                <div class="work-overlay">
+                    <div class="work-info">
+                        <div class="work-title">Romantic Scene Art</div>
+                        <div class="work-cat">2D Illustration</div>
+                    </div>
+                </div>
+            </div>
+            <div class="work-item" data-cat="concept">
+                <div class="work-bg art-4">
+                    <svg viewBox="0 0 300 280" xmlns="http://www.w3.org/2000/svg"
+                        style="width:100%;height:100%;position:absolute;top:0;left:0">
+                        <g opacity="0.7">
+                            <path d="M 80 80 Q 90 70 100 80" stroke="white" stroke-width="2.5" fill="none"
+                                stroke-linecap="round" />
+                            <path d="M 100 80 Q 110 70 120 80" stroke="white" stroke-width="2.5" fill="none"
+                                stroke-linecap="round" />
+                            <path d="M 130 95 Q 140 85 150 95" stroke="white" stroke-width="2.5" fill="none"
+                                stroke-linecap="round" />
+                        </g>
+                        <ellipse cx="220" cy="140" rx="50" ry="20" fill="white" opacity="0.4" />
+                        <path d="M 0 200 Q 60 170 120 185 Q 180 200 240 175 L 300 170 L 300 280 L 0 280 Z"
+                            fill="#e88040" opacity="0.6" />
+                        <ellipse cx="150" cy="210" rx="40" ry="15" fill="#f5c842" opacity="0.8" />
+                    </svg>
+                </div>
+                <div class="work-overlay">
+                    <div class="work-info">
+                        <div class="work-title">Environment Concept</div>
+                        <div class="work-cat">Concept Art</div>
+                    </div>
+                </div>
+            </div>
+            <div class="work-item" data-cat="character">
+                <div class="work-bg art-3">
+                    <svg viewBox="0 0 300 280" xmlns="http://www.w3.org/2000/svg"
+                        style="width:100%;height:100%;position:absolute;top:0;left:0">
+                        <circle cx="50" cy="40" r="2" fill="white" opacity="0.8" />
+                        <circle cx="200" cy="50" r="2" fill="white" opacity="0.9" />
+                        <circle cx="240" cy="70" r="35" fill="#e8d8f0" opacity="0.85" />
+                        <circle cx="250" cy="62" r="32" fill="#7a5c8a" />
+                        <path d="M 100 220 Q 130 200 160 210 Q 180 195 170 240 L 100 240 Z" fill="#1a1208" />
+                        <ellipse cx="135" cy="195" rx="20" ry="22" fill="#1a1208" />
+                        <rect x="0" y="240" width="300" height="40" fill="#1a1208" opacity="0.8" />
+                    </svg>
+                </div>
+                <div class="work-overlay">
+                    <div class="work-info">
+                        <div class="work-title">Character Silhouette</div>
+                        <div class="work-cat">Character Design</div>
+                    </div>
+                </div>
+            </div>
+            <div class="work-item" data-cat="poster">
+                <div class="work-bg art-5">
+                    <svg viewBox="0 0 300 280" xmlns="http://www.w3.org/2000/svg"
+                        style="width:100%;height:100%;position:absolute;top:0;left:0">
+                        <circle cx="80" cy="120" r="55" fill="#2d5a1a" opacity="0.9" />
+                        <circle cx="80" cy="110" r="45" fill="#3d7a2a" />
+                        <rect x="72" y="165" width="16" height="60" fill="#5a3a1a" />
+                        <circle cx="180" cy="140" r="45" fill="#2d5a1a" opacity="0.9" />
+                        <circle cx="180" cy="130" r="38" fill="#3d7a2a" />
+                        <rect x="173" y="178" width="14" height="50" fill="#5a3a1a" />
+                        <circle cx="150" cy="60" r="30" fill="#f5e040" opacity="0.8" />
+                        <rect x="0" y="250" width="300" height="30" fill="#4a7a1a" />
+                    </svg>
+                </div>
+                <div class="work-overlay">
+                    <div class="work-info">
+                        <div class="work-title">Nature Illustration</div>
+                        <div class="work-cat">2D Scene Art</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== GALLERY ===== -->
+    <section class="gallery-section" id="gallery">
+        <div class="section-label">Projects & Media</div>
+        <h2 class="gallery-title">Gallery &amp; <em>Showreel</em></h2>
+        <p class="gallery-subtitle">A curated selection of projects — from Vetri E-Square cinema murals to Think Music
+            illustrations. Replace placeholders with your actual project images.</p>
+
+        <div class="gallery-filter">
+            <button class="gf-btn active" onclick="filterGallery('all',this)">All Projects</button>
+            <button class="gf-btn" onclick="filterGallery('concept',this)">Concept Art</button>
+            <button class="gf-btn" onclick="filterGallery('merch',this)">Merchandising</button>
+            <button class="gf-btn" onclick="filterGallery('film',this)">Film & Music</button>
+            <button class="gf-btn" onclick="filterGallery('interior',this)">Interior</button>
+        </div>
+
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- PROJECT 01 — Concept Art (ALEN) -->
+            <div class="gallery-item wide reveal" data-gcat="concept"
+                onclick="openLightbox('concept-art','ALEN — Concept Art · Character, Environment & Prop Design')">
+                <div class="gallery-thumb-placeholder"
+                    style="background:linear-gradient(135deg,#f5e6cc,#e8d4a0);height:100%">
+                    <!-- REPLACE: <img src="project-alen-concept.jpg" class="gallery-thumb"> -->
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(26,18,8,0.3)"
+                        stroke-width="1.5">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <path d="M21 15l-5-5L5 21" />
+                    </svg>
+                    <span>Replace with project image</span>
+                </div>
+                <div class="gallery-cap">
+                    <div class="gallery-cap-text">
+                        <div class="gallery-cap-title">ALEN — Concept Art</div>
+                        <div class="gallery-cap-sub">Character · Environment · Props</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROJECT 02 — Merchandising -->
+            <div class="gallery-item reveal reveal-delay-1" data-gcat="merch"
+                onclick="openLightbox('merchandising','Merchandising — Tamil Cinema Tribute Posters')">
+                <div class="gallery-thumb-placeholder" style="background:linear-gradient(135deg,#1a1208,#c9942a)">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)"
+                        stroke-width="1.5">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <path d="M21 15l-5-5L5 21" />
+                    </svg>
+                    <span style="color:rgba(255,255,255,0.4)">Replace with project image</span>
+                </div>
+                <div class="gallery-cap">
+                    <div class="gallery-cap-text">
+                        <div class="gallery-cap-title">Merchandising Posters</div>
+                        <div class="gallery-cap-sub">Vector · Graphic Design</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROJECT 03 — KVN Productions -->
+            <div class="gallery-item reveal reveal-delay-2" data-gcat="film"
+                onclick="openLightbox('kvn','Jananayagan — KVN Productions · Title Frames')">
+                <div class="gallery-thumb-placeholder" style="background:linear-gradient(135deg,#cc2020,#1a1208)">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)"
+                        stroke-width="1.5">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <path d="M21 15l-5-5L5 21" />
+                    </svg>
+                    <span style="color:rgba(255,255,255,0.4)">Replace with project image</span>
+                </div>
+                <div class="gallery-cap">
+                    <div class="gallery-cap-text">
+                        <div class="gallery-cap-title">Jananayagan · KVN</div>
+                        <div class="gallery-cap-sub">Title Frames · Motion</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROJECT 04 — Think Music -->
+            <div class="gallery-item wide reveal" data-gcat="film"
+                onclick="openLightbox('thinkmusic','Think Music — Lyrical Video Illustrations')">
+                <div class="gallery-thumb-placeholder"
+                    style="background:linear-gradient(135deg,#c9942a,#6b9a3a);height:100%">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)"
+                        stroke-width="1.5">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <path d="M21 15l-5-5L5 21" />
+                    </svg>
+                    <span style="color:rgba(255,255,255,0.4)">Replace with project image</span>
+                </div>
+                <div class="gallery-cap">
+                    <div class="gallery-cap-text">
+                        <div class="gallery-cap-title">Think Music Illustration</div>
+                        <div class="gallery-cap-sub">Vector · Lyrical Video · Graphic Design</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROJECT 05 — AGS Campaign -->
+            <div class="gallery-item tall reveal" data-gcat="film"
+                onclick="openLightbox('ags','AGS Entertainment — Publicity Campaign · Greatest of All Time')">
+                <div class="gallery-thumb-placeholder" style="background:linear-gradient(180deg,#1a1208,#e8622a)">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)"
+                        stroke-width="1.5">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <path d="M21 15l-5-5L5 21" />
+                    </svg>
+                    <span style="color:rgba(255,255,255,0.4)">Replace with project image</span>
+                </div>
+                <div class="gallery-cap">
+                    <div class="gallery-cap-text">
+                        <div class="gallery-cap-title">AGS Entertainment</div>
+                        <div class="gallery-cap-sub">Publicity Campaign · Movie Poster</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROJECT 06 — Bafoon Kadhal -->
+            <div class="gallery-item reveal reveal-delay-1" data-gcat="film"
+                onclick="openLightbox('bafoon','Bafoon Kadhal — Digital Art · Vishnu Subash')">
+                <div class="gallery-thumb-placeholder" style="background:linear-gradient(135deg,#6b9ab8,#3d5a8a)">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)"
+                        stroke-width="1.5">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <path d="M21 15l-5-5L5 21" />
+                    </svg>
+                    <span style="color:rgba(255,255,255,0.4)">Replace with project image</span>
+                </div>
+                <div class="gallery-cap">
+                    <div class="gallery-cap-text">
+                        <div class="gallery-cap-title">Bafoon Kadhal</div>
+                        <div class="gallery-cap-sub">Realistic Digital Art</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROJECT 07 — Vetri E-Square -->
+            <div class="gallery-item wide reveal" data-gcat="interior"
+                onclick="openLightbox('vetri','Vetri E-Square — Epic Cinema Interior · 6–8 Month Contract')">
+                <div class="gallery-thumb-placeholder"
+                    style="background:linear-gradient(135deg,#c9942a,#1a1208);height:100%">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)"
+                        stroke-width="1.5">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <path d="M21 15l-5-5L5 21" />
+                    </svg>
+                    <span style="color:rgba(255,255,255,0.4)">Replace with project image</span>
+                </div>
+                <div class="gallery-cap">
+                    <div class="gallery-cap-text">
+                        <div class="gallery-cap-title">Vetri E-Square Cinema</div>
+                        <div class="gallery-cap-sub">Interior Illustration · Epic Frames of Tamil Cinema</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIDEO SECTION -->
+        <div style="margin-top:64px">
+            <div class="section-label">Process & Reels</div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;margin-bottom:12px">Watch the
+                <em style="color:var(--orange);font-style:italic">process.</em></h3>
+            <p style="opacity:0.6;font-size:0.92rem;margin-bottom:32px">Process videos, speed paints & project reels.
+                Add your YouTube video IDs below.</p>
+            <div class="video-grid">
+                <!-- VIDEO SLOT 1 — Replace data-vid with your YouTube video ID -->
+                <div class="video-item" data-vid="DV_h9CgE4h1" onclick="loadVideo(this)">
+                    <div class="video-thumb-placeholder">
+                        <div class="play-btn">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="white">
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+                        </div>
+                        <div class="video-label">Latest Instagram Reel<br><span
+                                style="font-size:0.65rem;opacity:0.5">Click to play</span></div>
+                    </div>
+                    <iframe class="video-frame" allowfullscreen></iframe>
+                </div>
+                <!-- VIDEO SLOT 2 — Replace YOUR_VIDEO_ID_2 with your YouTube video ID -->
+                <div class="video-item" data-vid="YOUR_VIDEO_ID_2" onclick="loadVideo(this)">
+                    <div class="video-thumb-placeholder">
+                        <div class="play-btn">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="white">
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+                        </div>
+                        <div class="video-label">Process Video / Speed Paint<br><span
+                                style="font-size:0.65rem;opacity:0.5">Add YouTube ID in code</span></div>
+                    </div>
+                    <iframe class="video-frame" allowfullscreen></iframe>
+                </div>
+                <!-- VIDEO SLOT 3 — Replace YOUR_VIDEO_ID_3 with your YouTube video ID -->
+                <div class="video-item" data-vid="YOUR_VIDEO_ID_3" onclick="loadVideo(this)">
+                    <div class="video-thumb-placeholder">
+                        <div class="play-btn">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="white">
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+                        </div>
+                        <div class="video-label">Client Project Showcase<br><span
+                                style="font-size:0.65rem;opacity:0.5">Add YouTube ID in code</span></div>
+                    </div>
+                    <iframe class="video-frame" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CLIENTS ===== -->
+    <section class="clients-section" id="clients">
+        <div class="section-label" style="color:var(--cream)">Trusted by</div>
+        <h2 class="clients-title">Clients &amp; <em>Collaborations</em></h2>
+        <div class="clients-grid">
+            <div class="client-card reveal">
+                <div class="client-logo">A</div>
+                <div class="client-name">AGS Entertainment</div>
+                <div class="client-type">Film Production</div>
+                <div class="client-project">Greatest of All Time · Publicity Campaign Illustrations</div>
+            </div>
+            <div class="client-card reveal reveal-delay-1">
+                <div class="client-logo" style="font-size:0.8rem">TM</div>
+                <div class="client-name">Think Music</div>
+                <div class="client-type">Music Label</div>
+                <div class="client-project">Lyrical Video Thumbnails · Album Art · Jukebox Illustrations</div>
+            </div>
+            <div class="client-card reveal reveal-delay-2">
+                <div class="client-logo">K</div>
+                <div class="client-name">KVN Productions</div>
+                <div class="client-type">Film Production</div>
+                <div class="client-project">Jananayagan Title Frames for Promo Video</div>
+            </div>
+            <div class="client-card reveal reveal-delay-3">
+                <div class="client-logo">V</div>
+                <div class="client-name">Vetri E-Square</div>
+                <div class="client-type">Cinema Chain</div>
+                <div class="client-project">Epic Frames of Tamil Cinema — Interior Illustration (6–8 Months)</div>
+            </div>
+            <div class="client-card reveal">
+                <div class="client-logo">T</div>
+                <div class="client-name">Thenandal Studios</div>
+                <div class="client-type">Film Production</div>
+                <div class="client-project">Movie Poster & Publicity Campaign Illustrations</div>
+            </div>
+            <div class="client-card reveal reveal-delay-1">
+                <div class="client-logo">R</div>
+                <div class="client-name">Route Studios</div>
+                <div class="client-type">Film Production</div>
+                <div class="client-project">Publicity Campaign & Movie Poster Design</div>
+            </div>
+            <div class="client-card reveal reveal-delay-2">
+                <div class="client-logo">V</div>
+                <div class="client-name">Vishnu Subash</div>
+                <div class="client-type">Director / Client</div>
+                <div class="client-project">Bafoon Kadhal — Realistic Digital Art Series</div>
+            </div>
+            <div class="client-card reveal reveal-delay-3">
+                <div class="client-logo">+</div>
+                <div class="client-name">Various Clients</div>
+                <div class="client-type">Freelance · 2018–Present</div>
+                <div class="client-project">Posters, Characters, Brand Art & More</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== EXPERIENCE & EDUCATION ===== -->
+    <section class="exp-section" id="experience">
+        <div class="section-label">Background</div>
+        <h2 class="exp-title">Experience &amp; <em>Education</em></h2>
+        <div class="exp-grid">
+            <div>
+                <div class="exp-col-title">Experience</div>
+                <div class="timeline">
+                    <div class="timeline-item reveal">
+                        <div class="timeline-date">2018 — Present</div>
+                        <div class="timeline-role">Freelance Illustrator & Concept Artist</div>
+                        <div class="timeline-org">Self-employed · Various Clients</div>
+                        <div class="timeline-desc">Working with film studios, music labels, theatre chains and brands on
+                            illustration, concept art, poster design, motion graphics and large-scale interior projects.
+                        </div>
+                    </div>
+                    <div class="timeline-item reveal reveal-delay-1">
+                        <div class="timeline-date">Contract Project</div>
+                        <div class="timeline-role">Cinema Interior Illustrator</div>
+                        <div class="timeline-org">Vetri E-Square · Coimbatore</div>
+                        <div class="timeline-desc">6–8 month contract to illustrate "Epic Frames of Tamil Cinema" — a
+                            large-scale vector artwork installation across the entire cinema interior.</div>
+                    </div>
+                    <div class="timeline-item reveal reveal-delay-2">
+                        <div class="timeline-date">Ongoing</div>
+                        <div class="timeline-role">Brand & Entertainment Illustrator</div>
+                        <div class="timeline-org">AGS, Think Music, KVN, Thenandal, Route</div>
+                        <div class="timeline-desc">Creating promotional illustrations, title frames, lyrical video art
+                            and movie poster designs for Tamil film and music industry clients.</div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="exp-col-title">Education</div>
+                <div class="timeline">
+                    <div class="timeline-item reveal">
+                        <div class="timeline-date">2018 — 2021</div>
+                        <div class="timeline-role">B.Sc Visual Communication</div>
+                        <div class="timeline-org">Nehru Arts & Science College, Coimbatore</div>
+                        <div class="timeline-desc">Studied visual communication with focus on design, illustration,
+                            digital art, and visual storytelling principles.</div>
+                    </div>
+                    <div class="timeline-item reveal reveal-delay-1">
+                        <div class="timeline-date">Skills</div>
+                        <div class="timeline-role">Software & Tools</div>
+                        <div class="timeline-org">Adobe Creative Suite & More</div>
+                        <div class="timeline-desc">Adobe Illustrator · Adobe Photoshop · After Effects · Procreate ·
+                            Digital Illustration · Vector Art · Motion Graphics</div>
+                    </div>
+                    <div class="timeline-item reveal reveal-delay-2">
+                        <div class="timeline-date">LinkedIn</div>
+                        <div class="timeline-role">Connect Professionally</div>
+                        <div class="timeline-org" style="word-break:break-all"><a
+                                href="http://linkedin.com/in/rajkumarillustrator" target="_blank"
+                                style="color:var(--orange);text-decoration:none">linkedin.com/in/rajkumarillustrator</a>
+                        </div>
+                        <div class="timeline-desc">Email: rajm557i66@gmail.com</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROCESS ===== -->
+    <section class="process" id="process">
+        <div class="section-label">How it works</div>
+        <h2 class="process-title">From idea to <em>artwork</em> —<br>here's the journey.</h2>
+        <div class="process-steps">
+            <div class="process-step reveal">
+                <div class="step-dot">01</div>
+                <div class="step-title">You Reach Out</div>
+                <p class="step-desc">DM on Instagram or WhatsApp, or fill the contact form. Share your idea, references,
+                    and timeline. Free consultation.</p>
+            </div>
+            <div class="process-step reveal reveal-delay-1">
+                <div class="step-dot">02</div>
+                <div class="step-title">Brief & Quote</div>
+                <p class="step-desc">We discuss scope, style, and pricing. A detailed quote with clear timelines is sent
+                    within 24 hours.</p>
+            </div>
+            <div class="process-step reveal reveal-delay-2">
+                <div class="step-dot">03</div>
+                <div class="step-title">Sketch & Approve</div>
+                <p class="step-desc">Initial sketch shared for your feedback. Refined until composition, mood and style
+                    are perfect.</p>
+            </div>
+            <div class="process-step reveal reveal-delay-3">
+                <div class="step-dot">04</div>
+                <div class="step-title">Final Delivery</div>
+                <p class="step-desc">High-res final artwork delivered in your preferred format (PNG, PDF, AI, PSD).
+                    Ready to print or publish.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <section class="testimonials">
+        <div class="section-label" style="color:var(--cream)">Kind words</div>
+        <h2 class="test-title">What clients<br><em>say.</em></h2>
+        <div class="test-grid">
+            <div class="test-card reveal">
+                <div class="test-stars">★★★★★</div>
+                <p class="test-quote">Rajkumar created the most stunning poster for our film campaign. His detail and
+                    cinematic quality is unmatched. Highly recommended.</p>
+                <div class="test-author">— Film Production Client, Chennai</div>
+            </div>
+            <div class="test-card reveal reveal-delay-1">
+                <div class="test-stars">★★★★★</div>
+                <p class="test-quote">The lyrical video illustrations Raj created for us were exceptional. Think Music
+                    quality — vibrant, expressive and delivered on time.</p>
+                <div class="test-author">— Think Music, Music Label</div>
+            </div>
+            <div class="test-card reveal reveal-delay-2">
+                <div class="test-stars">★★★★★</div>
+                <p class="test-quote">Commissioned concept art for our game project — ALEN character design was exactly
+                    the vision we had. Professional, talented, responsive.</p>
+                <div class="test-author">— Game Studio Client</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section class="contact" id="contact">
+        <div>
+            <div class="section-label">Let's create</div>
+            <h2 class="contact-title">Have a<br><em>vision?</em><br>Let's talk.</h2>
+            <p class="contact-desc">Whether it's a movie poster, concept art, or a creative campaign — I'd love to hear
+                about your project. Reach out and let's make something unforgettable.</p>
+            <div class="contact-methods">
+                <a href="https://www.instagram.com/raj_illustrator" target="_blank" class="contact-method">
+                    <div class="method-icon" style="background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045)">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+                            <rect x="2" y="2" width="20" height="20" rx="5" stroke="white" stroke-width="2" />
+                            <circle cx="12" cy="12" r="4" stroke="white" stroke-width="2" />
+                            <circle cx="17.5" cy="6.5" r="1" fill="white" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="method-label">Instagram (DM Preferred)</div>
+                        <div class="method-value">@raj_illustrator</div>
+                    </div>
+                </a>
+                <a href="https://wa.me/919999999999?text=Hi%20Rajkumar!%20I%20want%20to%20commission%20artwork."
+                    target="_blank" class="contact-method"
+                    style="background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.25)">
+                    <div class="method-icon" style="background:var(--wa)">
+                        <svg viewBox="0 0 24 24" width="18" height="18">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+                                fill="white" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="method-label">WhatsApp (Quick Reply)</div>
+                        <div class="method-value">Chat on WhatsApp →</div>
+                    </div>
+                </a>
+                <a href="mailto:rajm557i66@gmail.com" class="contact-method">
+                    <div class="method-icon">✉</div>
+                    <div>
+                        <div class="method-label">Email</div>
+                        <div class="method-value">rajm557i66@gmail.com</div>
+                    </div>
+                </a>
+                <a href="http://linkedin.com/in/rajkumarillustrator" target="_blank" class="contact-method">
+                    <div class="method-icon" style="background:#0a66c2;color:white;font-size:0.85rem;font-weight:700">in
+                    </div>
+                    <div>
+                        <div class="method-label">LinkedIn</div>
+                        <div class="method-value">linkedin.com/in/rajkumarillustrator</div>
+                    </div>
+                </a>
+                <a href="https://www.instagram.com/direct/new/" target="_blank" class="contact-method"
+                    style="background:var(--orange);color:white;border-color:var(--orange)">
+                    <div class="method-icon" style="background:rgba(255,255,255,0.2)">💬</div>
+                    <div>
+                        <div class="method-label" style="color:rgba(255,255,255,0.7)">Quickest Response</div>
+                        <div class="method-value">Send a DM on Instagram →</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div>
+            <div class="contact-form">
+                <div class="section-label">Or drop a message</div>
+                <div class="form-section-label">Commission Request</div>
+                <div id="formSuccess" class="form-success">
+                    <div style="font-size:2rem;margin-bottom:12px">🎨</div>
+                    <p style="font-family:'Playfair Display',serif;font-style:italic;opacity:0.8">Message sent! Rajkumar
+                        will reach out via WhatsApp or Instagram DM shortly.</p>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Your Name</label><input type="text"
+                            class="form-input" id="fName" placeholder="Your full name"></div>
+                    <div class="form-group"><label class="form-label">Budget (₹)</label><input type="text"
+                            class="form-input" id="fBudget" placeholder="e.g. ₹3,000"></div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Project Type</label>
+                    <select class="form-select" id="fType">
+                        <option value="">Select a service...</option>
+                        <option>Character Illustration</option>
+                        <option>Movie / Tribute Poster</option>
+                        <option>Concept Art</option>
+                        <option>Motion Graphics / Title Frames</option>
+                        <option>Merchandising / T-Shirt Design</option>
+                        <option>Interior / Large Scale</option>
+                        <option>Brand Collaboration</option>
+                        <option>Realistic Digital Art</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="form-group"><label class="form-label">Your WhatsApp / Instagram</label><input type="text"
+                        class="form-input" id="fContact" placeholder="@yourhandle or +91 XXXXX XXXXX"></div>
+                <div class="form-group"><label class="form-label">Tell me about your vision</label><textarea
+                        class="form-textarea" id="fMsg"
+                        placeholder="Describe the artwork — mood, style, references, deadline..."></textarea></div>
+                <button class="submit-btn" onclick="handleSubmit()">Send Message ✦</button>
+                <a id="waFinalBtn" href="#" target="_blank" class="wa-submit-btn" style="display:none">
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+                            fill="white" />
+                    </svg>
+                    Continue on WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SOCIAL LINKS ===== -->
+    <section class="social-section" id="socials">
+        <div>
+            <div class="section-label">Find me everywhere</div>
+            <h2 class="social-title">All my <em>links</em><br>in one place.</h2>
+            <p class="social-desc">Follow my creative journey across platforms — from Instagram reels to YouTube process
+                videos and Behance portfolio.</p>
+            <div class="social-links-list">
+                <a href="https://www.instagram.com/raj_illustrator" target="_blank"
+                    class="social-link-btn slb-instagram">
+                    <div class="slb-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+                            <rect x="2" y="2" width="20" height="20" rx="5" stroke="white" stroke-width="2" />
+                            <circle cx="12" cy="12" r="4" stroke="white" stroke-width="2" />
+                            <circle cx="17.5" cy="6.5" r="1" fill="white" />
+                        </svg></div>
+                    Instagram — @raj_illustrator
+                </a>
+                <a href="https://www.youtube.com/@rajillustrator" target="_blank" class="social-link-btn slb-youtube">
+                    <div class="slb-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="white">
+                            <path
+                                d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z" />
+                        </svg></div>
+                    YouTube — Process Videos & Reels
+                </a>
+                <a href="https://twitter.com/rajillustrator" target="_blank" class="social-link-btn slb-twitter">
+                    <div class="slb-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="white">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        </svg></div>
+                    Twitter / X — @rajillustrator
+                </a>
+                <a href="https://www.facebook.com/rajillustrator" target="_blank" class="social-link-btn slb-facebook">
+                    <div class="slb-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="white">
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg></div>
+                    Facebook Page
+                </a>
+                <a href="https://wa.me/919999999999" target="_blank" class="social-link-btn slb-whatsapp">
+                    <div class="slb-icon"><svg viewBox="0 0 24 24" width="18" height="18">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+                                fill="white" />
+                        </svg></div>
+                    WhatsApp — Quick Inquiry
+                </a>
+                <a href="https://www.behance.net/rajkumarillustrator" target="_blank"
+                    class="social-link-btn slb-behance">
+                    <div class="slb-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="white">
+                            <path
+                                d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029H23.7zM15.973 13h5.06c-.069-1.786-1.351-2.108-2.55-2.108-1.247 0-2.307.402-2.51 2.108zM1 21h3.65c1.97 0 3.706-.377 3.706-2.694 0-1.403-.819-2.228-2.143-2.388v-.044c1.083-.237 1.768-1.042 1.768-2.148 0-2.259-1.669-2.726-3.602-2.726H1V21zM4.002 12h1.43c.804 0 1.567.108 1.567 1.154 0 .979-.621 1.257-1.501 1.257H4.002V12zm0 4h1.538c1.02 0 1.71.287 1.71 1.462 0 1.109-.838 1.538-1.82 1.538H4V16z" />
+                        </svg></div>
+                    Behance — Full Portfolio
+                </a>
+            </div>
+        </div>
+
+        <div>
+            <div class="social-card-visual">
+                <div class="svc-avatar">R</div>
+                <div class="svc-name">Rajkumar M.</div>
+                <div class="svc-handle">@raj_illustrator · @rajillustrator1</div>
+                <div class="svc-links">
+                    <a href="https://tappr.in/rajillustrator1" target="_blank" class="svc-link"
+                        style="background:#1769ff">✦ Behance</a>
+                    <a href="https://twitter.com/rajillustrator" target="_blank" class="svc-link"
+                        style="background:#111">𝕏 Twitter / X</a>
+                    <a href="https://www.youtube.com/@rajillustrator" target="_blank" class="svc-link"
+                        style="background:#ff0000">▶ YouTube</a>
+                    <a href="https://www.instagram.com/raj_illustrator" target="_blank" class="svc-link"
+                        style="background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045)">◎ Instagram</a>
+                    <a href="https://wa.me/919999999999" target="_blank" class="svc-link"
+                        style="background:var(--wa)">💬 WhatsApp</a>
+                    <a href="mailto:rajm557i66@gmail.com" class="svc-link"
+                        style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7)">✉ rajm557i66@gmail.com</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="footer-top">
+            <div>
+                <div class="footer-brand">Rajkumar <span>M.</span></div>
+                <p class="footer-tagline">Freelance 2D Illustrator & Concept Artist based in India. Crafting cinematic
+                    stories, one frame at a time since 2018.</p>
+                <div class="footer-socials">
+                    <a href="https://www.instagram.com/raj_illustrator" target="_blank" class="f-social">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                            <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2" />
+                            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2" />
+                            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+                        </svg>
+                    </a>
+                    <a href="https://www.youtube.com/@rajillustrator" target="_blank" class="f-social">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                            <path
+                                d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z" />
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com/rajillustrator" target="_blank" class="f-social">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        </svg>
+                    </a>
+                    <a href="https://www.facebook.com/rajillustrator" target="_blank" class="f-social">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+                    </a>
+                    <a href="https://wa.me/919999999999" target="_blank" class="f-social">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                        </svg>
+                    </a>
+                    <a href="mailto:rajm557i66@gmail.com" class="f-social"
+                        style="font-size:0.7rem;font-weight:700">✉</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <div class="footer-col-title">Navigate</div>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#work">Portfolio</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#clients">Clients</a></li>
+                    <li><a href="#process">Process</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <div class="footer-col-title">Services</div>
+                <ul>
+                    <li><a href="#contact">Character Art</a></li>
+                    <li><a href="#contact">Movie Posters</a></li>
+                    <li><a href="#contact">Concept Art</a></li>
+                    <li><a href="#contact">Motion Graphics</a></li>
+                    <li><a href="#contact">Merchandising</a></li>
+                    <li><a href="#contact">Interior Art</a></li>
+                    <li><a href="#contact">Collab</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <div class="footer-col-title">Contact</div>
+                <ul>
+                    <li><a href="https://www.instagram.com/raj_illustrator" target="_blank">Instagram DM</a></li>
+                    <li><a href="https://wa.me/919999999999" target="_blank">WhatsApp</a></li>
+                    <li><a href="mailto:rajm557i66@gmail.com">Email</a></li>
+                    <li><a href="http://linkedin.com/in/rajkumarillustrator" target="_blank">LinkedIn</a></li>
+                    <li><a href="https://tappr.in/rajillustrator1" target="_blank">All Links (Tappr)</a></li>
+                    <li><a href="https://www.instagram.com/reel/DV_h9CgE4h1/" target="_blank">Latest Reel</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-copy">© 2025 Rajkumar M. · Freelance 2D Illustrator & Concept Artist · India · All rights
+                reserved.</div>
+            <a href="mailto:rajm557i66@gmail.com" class="footer-email">rajm557i66@gmail.com</a>
+        </div>
+    </footer>
+
+    <script>
+        // Loader
+        window.addEventListener('load', () => setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1400));
+
+        // Navbar
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+            document.getElementById('scrollTopBtn').classList.toggle('show', window.scrollY > 400);
+        });
+
+        // Hamburger
+        const ham = document.getElementById('hamburger'), nl = document.getElementById('nav-links');
+        ham.addEventListener('click', () => { ham.classList.toggle('active'); nl.classList.toggle('open') });
+        nl.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { ham.classList.remove('active'); nl.classList.remove('open') }));
+
+        // Scroll reveal
+        const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }), { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+        // Hero auto-reveal
+        setTimeout(() => document.querySelectorAll('.hero .reveal').forEach((el, i) => setTimeout(() => el.classList.add('visible'), i * 150 + 1200)), 100);
+
+        // Skill bar animation
+        const sObs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.querySelectorAll('.skill-bar-fill').forEach(b => b.classList.add('animated')) }), { threshold: 0.3 });
+        document.querySelectorAll('.skills-grid').forEach(el => sObs.observe(el));
+
+        // Portfolio filter
+        function filterWork(cat, btn) {
+            document.querySelectorAll('.ptab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.work-item').forEach(item => {
+                const show = cat === 'all' || item.dataset.cat === cat;
+                item.style.display = show ? '' : 'none';
+            });
+        }
+
+        // Gallery filter
+        function filterGallery(cat, btn) {
+            document.querySelectorAll('.gf-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                const show = cat === 'all' || item.dataset.gcat === cat;
+                item.style.opacity = show ? '1' : '0.2';
+                item.style.pointerEvents = show ? 'auto' : 'none';
+                item.style.transform = show ? '' : 'scale(0.95)';
+                item.style.transition = 'all 0.3s';
+            });
+        }
+
+        // Lightbox
+        function openLightbox(id, cap) {
+            document.getElementById('lbImg').src = '';
+            document.getElementById('lbCap').textContent = cap;
+            document.getElementById('lightbox').classList.add('open');
+        }
+        function closeLightbox() { document.getElementById('lightbox').classList.remove('open') }
+        document.getElementById('lightbox').addEventListener('click', function (e) { if (e.target === this) closeLightbox() });
+
+        // Video
+        function loadVideo(el) {
+            const vid = el.dataset.vid;
+            if (!vid || vid.startsWith('YOUR_')) return alert('Add your YouTube video ID to the data-vid attribute in the HTML code.');
+            el.querySelector('.video-frame').src = 'https://www.youtube.com/embed/' + vid + '?autoplay=1';
+            el.classList.add('playing');
+        }
+
+        // Form submit with WhatsApp
+        function handleSubmit() {
+            const name = document.getElementById('fName').value.trim();
+            const msg = document.getElementById('fMsg').value.trim();
+            const budget = document.getElementById('fBudget').value.trim();
+            const type = document.getElementById('fType').value;
+            const contact = document.getElementById('fContact').value.trim();
+            if (!name || !msg) { alert('Please fill in your name and project description.'); return; }
+            const waMsg = encodeURIComponent('Hi Rajkumar! 🎨\n\nName: ' + name + '\nProject: ' + (type || 'Not specified') + '\nBudget: ' + (budget || 'To discuss') + '\nContact: ' + (contact || 'N/A') + '\n\nVision: ' + msg);
+            document.getElementById('formSuccess').classList.add('show');
+            const waBtn = document.getElementById('waFinalBtn');
+            waBtn.href = 'https://wa.me/919999999999?text=' + waMsg;
+            waBtn.style.display = 'flex';
+            document.getElementById('formSuccess').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    </script>
+</body>
+
+</html>

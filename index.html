@@ -3433,6 +3433,160 @@
           height: 16px;
         }
       }
+
+      /* ===== MERCHANDISE ===== */
+      .merch-section {
+        padding: 120px 64px;
+        background: var(--ink);
+        color: var(--cream);
+        position: relative;
+        overflow: hidden;
+      }
+      .merch-section::before {
+        content: "MERCH";
+        position: absolute;
+        right: -20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-family: "Playfair Display", serif;
+        font-size: 14rem;
+        font-weight: 900;
+        color: rgba(255,255,255,0.03);
+        pointer-events: none;
+        white-space: nowrap;
+        letter-spacing: -0.04em;
+      }
+      .merch-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+      .merch-section .section-label {
+        color: var(--cream);
+        opacity: 0.45;
+      }
+      .merch-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.2rem, 4vw, 3.2rem);
+        font-weight: 900;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        margin-bottom: 14px;
+        color: var(--cream);
+      }
+      .merch-title em {
+        color: var(--orange);
+        font-style: italic;
+      }
+      .merch-sub {
+        font-size: 1rem;
+        opacity: 0.55;
+        line-height: 1.7;
+        max-width: 500px;
+        margin-bottom: 56px;
+        color: var(--cream);
+      }
+      .merch-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-bottom: 48px;
+      }
+      .merch-card {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(247,242,232,0.08);
+        border-radius: 4px;
+        overflow: hidden;
+        transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+        cursor: pointer;
+      }
+      .merch-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(232,98,42,0.4);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      }
+      .merch-img-wrap {
+        position: relative;
+        aspect-ratio: 3/4;
+        overflow: hidden;
+        background: rgba(255,255,255,0.03);
+      }
+      .merch-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+        display: block;
+      }
+      .merch-card:hover .merch-img-wrap img {
+        transform: scale(1.06);
+      }
+      .merch-img-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, transparent 50%, rgba(26,18,8,0.85) 100%);
+        opacity: 0;
+        transition: opacity 0.35s ease;
+        display: flex;
+        align-items: flex-end;
+        padding: 20px;
+      }
+      .merch-card:hover .merch-img-overlay {
+        opacity: 1;
+      }
+      .merch-overlay-text {
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--cream);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .merch-overlay-text::after {
+        content: "→";
+        font-size: 1rem;
+        transition: transform 0.2s;
+      }
+      .merch-card:hover .merch-overlay-text::after {
+        transform: translateX(4px);
+      }
+      .merch-body {
+        padding: 16px 18px 20px;
+      }
+      .merch-cat {
+        font-size: 0.62rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--orange);
+        margin-bottom: 6px;
+        opacity: 0.85;
+      }
+      .merch-name {
+        font-family: "Playfair Display", serif;
+        font-size: 1rem;
+        font-weight: 700;
+        line-height: 1.25;
+        color: var(--cream);
+        opacity: 0.9;
+      }
+      .merch-note {
+        text-align: center;
+        font-family: "Caveat", cursive;
+        font-size: 1.1rem;
+        color: var(--cream);
+        opacity: 0.35;
+      }
+      @media (max-width: 1024px) {
+        .merch-grid { grid-template-columns: repeat(3, 1fr); }
+      }
+      @media (max-width: 700px) {
+        .merch-section { padding: 72px 20px; }
+        .merch-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      }
     </style>
   </head>
 
@@ -3568,6 +3722,7 @@
         <li><a href="#gallery">Gallery</a></li>
         <li><a href="#clients">Clients</a></li>
         <li><a href="#contact" class="nav-cta-link">Contact</a></li>
+
       </ul>
       <button
         class="hamburger"
@@ -4180,6 +4335,140 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ===== MERCHANDISE ===== -->
+    <section id="merch" class="merch-section">
+      <div class="merch-inner">
+        <div class="section-label reveal">Merchandise</div>
+        <h2 class="merch-title reveal">Art you can <em>wear &amp; own.</em></h2>
+        <p class="merch-sub reveal">Rajkumar's illustrations — available as premium prints and merchandise. Each piece tells a story.</p>
+        <div class="merch-grid">
+
+          <div class="merch-card reveal">
+            <div class="merch-img-wrap">
+              <img src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780210096/tyler-durden-fight-club_h5hlny.jpg" alt="Tyler Durden" loading="lazy" />
+              <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
+            </div>
+            <div class="merch-body">
+              <div class="merch-cat">Poster Print</div>
+              <div class="merch-name">Tyler Durden</div>
+            </div>
+          </div>
+
+          <div class="merch-card reveal">
+            <div class="merch-img-wrap">
+              <img src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780210077/cricket-never-too-late-to-dream_gtrepb.jpg" alt="Never Too Late to Dream" loading="lazy" />
+              <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
+            </div>
+            <div class="merch-body">
+              <div class="merch-cat">Poster Print</div>
+              <div class="merch-name">Never Too Late to Dream</div>
+            </div>
+          </div>
+
+          <div class="merch-card reveal">
+            <div class="merch-img-wrap">
+              <img src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780210081/kamal-hassan-virumaandi_d9fi3p.jpg" alt="Kamal Hassan — Virumaandi" loading="lazy" />
+              <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
+            </div>
+            <div class="merch-body">
+              <div class="merch-cat">Portrait Print</div>
+              <div class="merch-name">Kamal Hassan — Virumaandi</div>
+            </div>
+          </div>
+
+          <div class="merch-card reveal">
+            <div class="merch-img-wrap">
+              <img src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780210082/pencil-sketch-red_zc4blf.jpg" alt="STR Portrait" loading="lazy" />
+              <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
+            </div>
+            <div class="merch-body">
+              <div class="merch-cat">Pencil Art Print</div>
+              <div class="merch-name">STR</div>
+            </div>
+          </div>
+
+          <div class="merch-card reveal">
+            <div class="merch-img-wrap">
+              <img src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780210083/red-dragon-ajith_jd4ppt.jpg" alt="Red Dragon — Ajith" loading="lazy" />
+              <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
+            </div>
+            <div class="merch-body">
+              <div class="merch-cat">Poster Print</div>
+              <div class="merch-name">Red Dragon — Ajith</div>
+            </div>
+          </div>
+
+          <div class="merch-card reveal">
+            <div class="merch-img-wrap">
+              <img src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780210078/fight-club-brad-pitt_g7wiwo.jpg" alt="Fight Club — Brad Pitt" loading="lazy" />
+              <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
+            </div>
+            <div class="merch-body">
+              <div class="merch-cat">Poster Print</div>
+              <div class="merch-name">Fight Club — Brad Pitt</div>
+            </div>
+          </div>
+
+          <div class="merch-card reveal">
+            <div class="merch-img-wrap">
+              <img src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780210097/yuvan-shankar-raja_egorka.jpg" alt="Yuvan Shankar Raja" loading="lazy" />
+              <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
+            </div>
+            <div class="merch-body">
+              <div class="merch-cat">Tribute Print</div>
+              <div class="merch-name">Yuvan Shankar Raja</div>
+            </div>
+          </div>
+
+          <div class="merch-card reveal">
+            <div class="merch-img-wrap">
+              <img src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780210079/dark-warrior-wings_evbwvc.jpg" alt="Dark Warrior" loading="lazy" />
+              <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
+            </div>
+            <div class="merch-body">
+              <div class="merch-cat">Fantasy Print</div>
+              <div class="merch-name">Dark Warrior</div>
+            </div>
+          </div>
+
+          <div class="merch-card reveal">
+            <div class="merch-img-wrap">
+              <img src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780210077/breaking-bad-walter-white_jg8bzm.jpg" alt="Walter White — Breaking Bad" loading="lazy" />
+              <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
+            </div>
+            <div class="merch-body">
+              <div class="merch-cat">Poster Print</div>
+              <div class="merch-name">Walter White — Breaking Bad</div>
+            </div>
+          </div>
+
+          <div class="merch-card reveal">
+            <div class="merch-img-wrap">
+              <img src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780210084/shadow-portrait_mldkpg.jpg" alt="Shadow Portrait" loading="lazy" />
+              <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
+            </div>
+            <div class="merch-body">
+              <div class="merch-cat">Portrait Print</div>
+              <div class="merch-name">Shadow Portrait</div>
+            </div>
+          </div>
+
+          <div class="merch-card reveal">
+            <div class="merch-img-wrap">
+              <img src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780210079/ilayaraja-portrait_frnq06.jpg" alt="Ilayaraja" loading="lazy" />
+              <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
+            </div>
+            <div class="merch-body">
+              <div class="merch-cat">Tribute Print</div>
+              <div class="merch-name">Ilayaraja</div>
+            </div>
+          </div>
+
+        </div>
+        <p class="merch-note reveal">✦ To order, reach out via WhatsApp or Instagram · Custom sizes available on request ✦</p>
       </div>
     </section>
 

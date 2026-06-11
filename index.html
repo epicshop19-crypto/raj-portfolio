@@ -8,6 +8,8 @@
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=Caveat:wght@500;700&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
     <style>
       :root {
         --ink: #1a1208;
@@ -4205,136 +4207,6 @@
       </div>
 
       <div class="work-grid">
-        <div class="work-item" data-cat="poster">
-          <div class="work-bg">
-            <img
-              src="https://res.cloudinary.com/dlccdb4w4/image/upload/v1780208272/jananayagan-title-frames_hi8r8m.jpg"
-              style="width: 100%; height: auto; display: block"
-            />
-          </div>
-          <div class="work-overlay">
-            <div class="work-info">
-              <div class="work-title">Jananayagan Title Frames</div>
-              <div class="work-cat">Motion Graphics · KVN Productions</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="work-item" data-cat="merch">
-          <div class="work-bg">
-            <img
-              src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780208552/clint-eastwood-fanart_rofbxl.jpg"
-              style="width: 100%; height: auto; display: block"
-            />
-          </div>
-          <div class="work-overlay">
-            <div class="work-info">
-              <div class="work-title">The Good — Fan Art</div>
-              <div class="work-cat">
-                Vector Illustration · International Cinema
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="work-item" data-cat="music">
-          <div class="work-bg">
-            <img
-              src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780208554/yuvan-shankar-raja-vector_carvor.jpg"
-              style="width: 100%; height: auto; display: block"
-            />
-          </div>
-          <div class="work-overlay">
-            <div class="work-info">
-              <div class="work-title">Yuvan Shankar Raja</div>
-              <div class="work-cat">Vector Portrait · Music Artist</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="work-item" data-cat="poster">
-          <div class="work-bg">
-            <img
-              src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780208553/mr-housekeeping-movie-poster_qrdbnz.jpg"
-              style="width: 100%; height: auto; display: block"
-            />
-          </div>
-          <div class="work-overlay">
-            <div class="work-info">
-              <div class="work-title">Mr. Housekeeping</div>
-              <div class="work-cat">Movie Poster · Thenandal Studio</div>
-            </div>
-          </div>
-        </div>
-        <div class="work-item" data-cat="music">
-          <div class="work-bg">
-            <img
-              src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780208554/music-artist-vector-portrait_okl0xt.jpg"
-              style="width: 100%; height: auto; display: block"
-            />
-          </div>
-          <div class="work-overlay">
-            <div class="work-info">
-              <div class="work-title">Rock Star Portrait</div>
-              <div class="work-cat">Vector Illustration · Music</div>
-            </div>
-          </div>
-        </div>
-        <div class="work-item" data-cat="music">
-          <div class="work-bg">
-            <img
-              src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780208552/manmadhane-nee-think-music_gdaedm.jpg"
-              style="width: 100%; height: auto; display: block"
-            />
-          </div>
-          <div class="work-overlay">
-            <div class="work-info">
-              <div class="work-title">Manmadhane Nee Video Song</div>
-              <div class="work-cat">Music Illustration · Think Music</div>
-            </div>
-          </div>
-        </div>
-        <div class="work-item" data-cat="music">
-          <div class="work-bg">
-            <img
-              src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780208553/think-travelogue-siddharth_ym30dy.jpg"
-              style="width: 100%; height: auto; display: block"
-            />
-          </div>
-          <div class="work-overlay">
-            <div class="work-info">
-              <div class="work-title">Think Travelogue — Siddharth</div>
-              <div class="work-cat">Vector Illustration · Think Music</div>
-            </div>
-          </div>
-        </div>
-        <div class="work-item" data-cat="digital">
-          <div class="work-bg">
-            <img
-              src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780208554/neerparavai-scene-illustration_ogxzu5.jpg"
-              style="width: 100%; height: auto; display: block"
-            />
-          </div>
-          <div class="work-overlay">
-            <div class="work-info">
-              <div class="work-title">Neerparavai — Sunset Scene</div>
-              <div class="work-cat">Romantic Scene Illustration</div>
-            </div>
-          </div>
-        </div>
-        <div class="work-item" data-cat="concept">
-          <div class="work-bg">
-            <img
-              src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780208553/johnny-character-wallpaper_vbzblz.jpg"
-              style="width: 100%; height: auto; display: block"
-            />
-          </div>
-          <div class="work-overlay">
-            <div class="work-info">
-              <div class="work-title">Johnny — Character Art</div>
-              <div class="work-cat">Character Illustration · Personal Work</div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -4345,128 +4217,6 @@
         <h2 class="merch-title reveal">Art you can <em>wear &amp; own.</em></h2>
         <p class="merch-sub reveal">Rajkumar's illustrations — available as premium prints and merchandise. Each piece tells a story.</p>
         <div class="merch-grid">
-
-          <div class="merch-card reveal">
-            <div class="merch-img-wrap">
-              <img src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780210096/tyler-durden-fight-club_h5hlny.jpg" alt="Tyler Durden" loading="lazy" />
-              <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
-            </div>
-            <div class="merch-body">
-              <div class="merch-cat">Poster Print</div>
-              <div class="merch-name">Tyler Durden</div>
-            </div>
-          </div>
-
-          <div class="merch-card reveal">
-            <div class="merch-img-wrap">
-              <img src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780210077/cricket-never-too-late-to-dream_gtrepb.jpg" alt="Never Too Late to Dream" loading="lazy" />
-              <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
-            </div>
-            <div class="merch-body">
-              <div class="merch-cat">Poster Print</div>
-              <div class="merch-name">Never Too Late to Dream</div>
-            </div>
-          </div>
-
-          <div class="merch-card reveal">
-            <div class="merch-img-wrap">
-              <img src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780210081/kamal-hassan-virumaandi_d9fi3p.jpg" alt="Kamal Hassan — Virumaandi" loading="lazy" />
-              <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
-            </div>
-            <div class="merch-body">
-              <div class="merch-cat">Portrait Print</div>
-              <div class="merch-name">Kamal Hassan — Virumaandi</div>
-            </div>
-          </div>
-
-          <div class="merch-card reveal">
-            <div class="merch-img-wrap">
-              <img src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780210082/pencil-sketch-red_zc4blf.jpg" alt="STR Portrait" loading="lazy" />
-              <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
-            </div>
-            <div class="merch-body">
-              <div class="merch-cat">Pencil Art Print</div>
-              <div class="merch-name">STR</div>
-            </div>
-          </div>
-
-          <div class="merch-card reveal">
-            <div class="merch-img-wrap">
-              <img src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780210083/red-dragon-ajith_jd4ppt.jpg" alt="Red Dragon — Ajith" loading="lazy" />
-              <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
-            </div>
-            <div class="merch-body">
-              <div class="merch-cat">Poster Print</div>
-              <div class="merch-name">Red Dragon — Ajith</div>
-            </div>
-          </div>
-
-          <div class="merch-card reveal">
-            <div class="merch-img-wrap">
-              <img src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780210078/fight-club-brad-pitt_g7wiwo.jpg" alt="Fight Club — Brad Pitt" loading="lazy" />
-              <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
-            </div>
-            <div class="merch-body">
-              <div class="merch-cat">Poster Print</div>
-              <div class="merch-name">Fight Club — Brad Pitt</div>
-            </div>
-          </div>
-
-          <div class="merch-card reveal">
-            <div class="merch-img-wrap">
-              <img src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780210097/yuvan-shankar-raja_egorka.jpg" alt="Yuvan Shankar Raja" loading="lazy" />
-              <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
-            </div>
-            <div class="merch-body">
-              <div class="merch-cat">Tribute Print</div>
-              <div class="merch-name">Yuvan Shankar Raja</div>
-            </div>
-          </div>
-
-          <div class="merch-card reveal">
-            <div class="merch-img-wrap">
-              <img src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780210079/dark-warrior-wings_evbwvc.jpg" alt="Dark Warrior" loading="lazy" />
-              <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
-            </div>
-            <div class="merch-body">
-              <div class="merch-cat">Fantasy Print</div>
-              <div class="merch-name">Dark Warrior</div>
-            </div>
-          </div>
-
-          <div class="merch-card reveal">
-            <div class="merch-img-wrap">
-              <img src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780210077/breaking-bad-walter-white_jg8bzm.jpg" alt="Walter White — Breaking Bad" loading="lazy" />
-              <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
-            </div>
-            <div class="merch-body">
-              <div class="merch-cat">Poster Print</div>
-              <div class="merch-name">Walter White — Breaking Bad</div>
-            </div>
-          </div>
-
-          <div class="merch-card reveal">
-            <div class="merch-img-wrap">
-              <img src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780210084/shadow-portrait_mldkpg.jpg" alt="Shadow Portrait" loading="lazy" />
-              <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
-            </div>
-            <div class="merch-body">
-              <div class="merch-cat">Portrait Print</div>
-              <div class="merch-name">Shadow Portrait</div>
-            </div>
-          </div>
-
-          <div class="merch-card reveal">
-            <div class="merch-img-wrap">
-              <img src="https://res.cloudinary.com/dlccdb4w4/image/upload/q_auto/f_auto/v1780210079/ilayaraja-portrait_frnq06.jpg" alt="Ilayaraja" loading="lazy" />
-              <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
-            </div>
-            <div class="merch-body">
-              <div class="merch-cat">Tribute Print</div>
-              <div class="merch-name">Ilayaraja</div>
-            </div>
-          </div>
-
         </div>
         <p class="merch-note reveal">✦ To order, reach out via WhatsApp or Instagram · Custom sizes available on request ✦</p>
       </div>
@@ -4483,169 +4233,6 @@
       </p>
 
       <div class="gallery-grid" id="galleryGrid">
-        <div
-          class="gallery-item wide reveal"
-          data-gcat="motion"
-          onclick="toggleInlineVideo(this, event)"
-        >
-          <div
-            class="gallery-thumb-placeholder"
-            style="padding: 0; overflow: hidden"
-          >
-            <video
-              poster="https://res.cloudinary.com/dlccdb4w4/video/upload/q_auto/f_auto/v1780208940/video-reel-1_qtcbep.jpg"
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              style="width: 100%; height: auto; display: block"
-            >
-              <source src="https://res.cloudinary.com/dlccdb4w4/video/upload/q_auto/f_auto/v1780208940/video-reel-1_qtcbep.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div class="gallery-cap">
-            <div class="gallery-cap-text">
-              <div class="gallery-cap-title">Motion Reel — Vol 1</div>
-              <div class="gallery-cap-sub">Animation · Motion Graphics</div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="gallery-item reveal"
-          data-gcat="motion"
-          onclick="toggleInlineVideo(this, event)"
-        >
-          <div
-            class="gallery-thumb-placeholder"
-            style="padding: 0; overflow: hidden"
-          >
-            <video
-              poster="https://res.cloudinary.com/dlccdb4w4/video/upload/q_auto/f_auto/v1780208938/video-reel-2_rhloxy.jpg"
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              style="width: 100%; height: auto; display: block"
-            >
-              <source src="https://res.cloudinary.com/dlccdb4w4/video/upload/q_auto/f_auto/v1780208938/video-reel-2_rhloxy.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div class="gallery-cap">
-            <div class="gallery-cap-text">
-              <div class="gallery-cap-title">Character Animation Reel</div>
-              <div class="gallery-cap-sub">Motion Graphics · Vector</div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="gallery-item reveal"
-          data-gcat="process"
-          onclick="toggleInlineVideo(this, event)"
-        >
-          <div
-            class="gallery-thumb-placeholder"
-            style="padding: 0; overflow: hidden"
-          >
-            <video
-              poster="https://res.cloudinary.com/dlccdb4w4/video/upload/q_auto/f_auto/v1780208942/video-reel-3_lnhzsx.jpg"
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              style="width: 100%; height: auto; display: block"
-            >
-              <source src="https://res.cloudinary.com/dlccdb4w4/video/upload/q_auto/f_auto/v1780208942/video-reel-3_lnhzsx.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div class="gallery-cap">
-            <div class="gallery-cap-text">
-              <div class="gallery-cap-title">Illustration Process Reel</div>
-              <div class="gallery-cap-sub">Speed Art · Process Video</div>
-            </div>
-          </div>
-        </div>
-
-        <div
-          class="gallery-item wide reveal"
-          data-gcat="publicity"
-          onclick="toggleInlineVideo(this, event)"
-        >
-          <div
-            class="gallery-thumb-placeholder"
-            style="padding: 0; overflow: hidden"
-          >
-            <video
-              poster="https://res.cloudinary.com/dlccdb4w4/video/upload/q_auto/f_auto/v1780208939/video-reel-5_xjzg6t.jpg"
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              style="width: 100%; height: auto; display: block"
-            >
-              <source src="https://res.cloudinary.com/dlccdb4w4/video/upload/q_auto/f_auto/v1780208939/video-reel-5_xjzg6t.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div class="gallery-cap">
-            <div class="gallery-cap-text">
-              <div class="gallery-cap-title">Cinema Art Showcase</div>
-              <div class="gallery-cap-sub">Vetri E-Square · Interior Art</div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="gallery-item reveal"
-          data-gcat="motion"
-          onclick="toggleInlineVideo(this, event)"
-        >
-          <div
-            class="gallery-thumb-placeholder"
-            style="padding: 0; overflow: hidden"
-          >
-            <video
-              poster="https://res.cloudinary.com/dlccdb4w4/video/upload/q_auto/f_auto/v1780208945/video-reel-6_k5b2bu.jpg"
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              style="width: 100%; height: auto; display: block"
-            >
-              <source src="https://res.cloudinary.com/dlccdb4w4/video/upload/q_auto/f_auto/v1780208945/video-reel-6_k5b2bu.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div class="gallery-cap">
-            <div class="gallery-cap-text">
-              <div class="gallery-cap-title">Portfolio Highlights Reel</div>
-              <div class="gallery-cap-sub">Best of Rajkumar M.</div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="gallery-item reveal"
-          data-gcat="social"
-          onclick="toggleInlineVideo(this, event)"
-        >
-          <div
-            class="gallery-thumb-placeholder"
-            style="padding: 0; overflow: hidden"
-          >
-            <video
-              poster="https://res.cloudinary.com/dlccdb4w4/video/upload/q_auto/f_auto/v1780208925/instagram-reel-1_ynrrsy.jpg"
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              style="width: 100%; height: auto; display: block"
-            >
-              <source src="https://res.cloudinary.com/dlccdb4w4/video/upload/q_auto/f_auto/v1780208925/instagram-reel-1_ynrrsy.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div class="gallery-cap">
-            <div class="gallery-cap-text">
-              <div class="gallery-cap-title">Instagram Reel</div>
-              <div class="gallery-cap-sub">Social Content</div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -5475,6 +5062,128 @@
           submitBtn.disabled = false;
         }
       }
+
+      // ===== DYNAMIC PORTFOLIO LOADER (Supabase + Cloudinary) =====
+      let supabaseClient = null;
+      if (typeof CONFIG !== 'undefined' && CONFIG.SUPABASE_URL !== "YOUR_SUPABASE_URL" && CONFIG.SUPABASE_ANON_KEY !== "YOUR_SUPABASE_ANON_KEY") {
+        supabaseClient = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
+      }
+
+      async function loadDynamicProjects() {
+        if (!supabaseClient) {
+          console.warn("Supabase is not configured yet. Running static mode.");
+          return;
+        }
+
+        try {
+          const { data: projects, error } = await supabaseClient
+            .from("projects")
+            .select("*")
+            .order("created_at", { ascending: true }); // Ascending so that when we prepend, the newest items end up at the very top of the grid!
+
+          if (error) throw error;
+          if (!projects || projects.length === 0) return;
+
+          const workGrid = document.querySelector(".work-grid");
+          const galleryGrid = document.getElementById("galleryGrid");
+
+          projects.forEach(project => {
+            const isVideo = project.media_url.endsWith(".mp4") || project.media_url.includes("/video/upload/");
+
+            if (project.section === 'work') {
+              if (workGrid) {
+                const item = document.createElement("div");
+                item.className = "work-item reveal visible";
+                item.setAttribute("data-cat", project.category);
+                
+                item.innerHTML = `
+                  <div class="work-bg">
+                    <img src="${project.media_url}" style="width: 100%; height: auto; display: block" loading="lazy" />
+                  </div>
+                  <div class="work-overlay">
+                    <div class="work-info">
+                      <div class="work-title">${project.title}</div>
+                      <div class="work-cat">${project.description}</div>
+                    </div>
+                  </div>
+                `;
+                
+                // Prepend to place new works at the top
+                workGrid.insertBefore(item, workGrid.firstChild);
+              }
+            } else if (project.section === 'gallery') {
+              if (galleryGrid) {
+                const item = document.createElement("div");
+                item.className = "gallery-item reveal visible";
+                item.setAttribute("data-gcat", project.category);
+
+                if (isVideo) {
+                  let posterUrl = project.media_url.replace(/\.mp4($|\?)/, '.jpg$1');
+                  if (!posterUrl.endsWith('.jpg') && !posterUrl.includes('.jpg?')) {
+                    posterUrl = project.media_url + '.jpg';
+                  }
+
+                  item.onclick = function(e) { toggleInlineVideo(item, e); };
+                  item.innerHTML = `
+                    <div class="gallery-thumb-placeholder" style="padding: 0; overflow: hidden">
+                      <video poster="${posterUrl}" muted loop playsinline preload="metadata" style="width: 100%; height: auto; display: block">
+                        <source src="${project.media_url}" type="video/mp4" />
+                      </video>
+                    </div>
+                    <div class="gallery-cap">
+                      <div class="gallery-cap-text">
+                        <div class="gallery-cap-title">${project.title}</div>
+                        <div class="gallery-cap-sub">${project.description}</div>
+                      </div>
+                    </div>
+                  `;
+                } else {
+                  item.innerHTML = `
+                    <div class="gallery-thumb-placeholder" style="padding: 0; overflow: hidden">
+                      <img src="${project.media_url}" style="width: 100%; height: auto; display: block" loading="lazy" />
+                    </div>
+                    <div class="gallery-cap">
+                      <div class="gallery-cap-text">
+                        <div class="gallery-cap-title">${project.title}</div>
+                        <div class="gallery-cap-sub">${project.description}</div>
+                      </div>
+                    </div>
+                  `;
+                }
+
+                if (project.category === 'motion' || isVideo) {
+                  item.classList.add("wide");
+                }
+
+                // Prepend so that the newest uploads appear first in the gallery
+                galleryGrid.insertBefore(item, galleryGrid.firstChild);
+              }
+            } else if (project.section === 'merch') {
+              const merchGrid = document.querySelector(".merch-grid");
+              if (merchGrid) {
+                const card = document.createElement("div");
+                card.className = "merch-card reveal visible";
+                card.innerHTML = `
+                  <div class="merch-img-wrap">
+                    <img src="${project.media_url}" alt="${project.title}" loading="lazy" />
+                    <div class="merch-img-overlay"><span class="merch-overlay-text">Order Print</span></div>
+                  </div>
+                  <div class="merch-body">
+                    <div class="merch-cat">${project.category}</div>
+                    <div class="merch-name">${project.title}</div>
+                  </div>
+                `;
+                // Prepend to place new merchandise at the top
+                merchGrid.insertBefore(card, merchGrid.firstChild);
+              }
+            }
+          });
+        } catch (e) {
+          console.error("Failed to load dynamic projects:", e);
+        }
+      }
+
+      window.addEventListener("DOMContentLoaded", loadDynamicProjects);
     </script>
   </body>
 </html>

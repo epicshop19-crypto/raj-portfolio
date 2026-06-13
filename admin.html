@@ -773,7 +773,7 @@
             <div class="file-preview-container" id="previewContainer">
               <div class="preview-box">
                 <img id="previewImage" class="preview-thumb" src="" alt="preview" />
-                <video id="previewVideo" class="preview-thumb" style="display:none;" muted></video>
+                <video id="previewVideo" class="preview-thumb" style="display:none;" muted autoplay loop playsinline></video>
                 <div class="preview-details">
                   <div class="preview-name" id="previewName">filename.jpg</div>
                   <div class="preview-size" id="previewSize">1.2 MB</div>
@@ -1180,7 +1180,11 @@
             let mediaPreview = "";
             const isVideo = item.media_url.endsWith(".mp4") || item.media_url.includes("/video/upload/");
             if (isVideo) {
-              mediaPreview = `<video class="project-media" src="${item.media_url}" muted></video>`;
+              let posterUrl = item.media_url.replace(/\.mp4($|\?)/, '.jpg$1');
+              if (!posterUrl.endsWith('.jpg') && !posterUrl.includes('.jpg?')) {
+                posterUrl = item.media_url + '.jpg';
+              }
+              mediaPreview = `<video class="project-media" src="${item.media_url}" poster="${posterUrl}" muted preload="metadata" playsinline></video>`;
             } else {
               mediaPreview = `<img class="project-media" src="${item.media_url}" alt="Preview" />`;
             }
